@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AcuseCancelacion" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="041fd329-b27d-44e2-9712-5d45bbb4cabd">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML_Acuse_Cancelacion"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="tgl_doc" class="java.lang.String"/>
+	<field name="nama_jelas" class="java.lang.String"/>
+	<field name="nama_jelas_1" class="java.lang.String"/>
+	<field name="nama_jelas_2" class="java.lang.String"/>
+	<field name="ttl" class="java.lang.String"/>
+	<field name="jk" class="java.lang.String"/>
+	<field name="sign_1" class="java.lang.String"/>
+	<field name="sign_2" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="38" splitType="Immediate">
+			<staticText>
+				<reportElement x="173" y="5" width="256" height="20" uuid="83657516-b5eb-47a6-8e91-3a57cc671748">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tester Signature PDF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="87" y="22" width="66" height="14" uuid="79f59363-c37b-4f8b-b2f4-aadb02717a28"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tanggal :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="154" y="22" width="70" height="14" uuid="5f10c6b4-2a29-45c9-990d-1582d698e7ed"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tgl_doc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="1" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="228" splitType="Stretch">
+			<staticText>
+				<reportElement x="177" y="38" width="126" height="13" uuid="b07a49d3-073b-46b6-962a-a18c1edf9111"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name   :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="316" y="40" width="116" height="14" uuid="780c85d7-788f-4e34-ac9d-278c9868c8d6"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_jelas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="177" y="65" width="126" height="13" uuid="e14de522-bd90-4fa0-8789-935e6318376d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tempat / tanggal lahir  :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="316" y="67" width="116" height="14" uuid="1af720bb-1bfc-44fa-8054-16c505bc404f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ttl}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="176" y="94" width="127" height="14" uuid="860f3e77-9004-4d2e-9d3a-639a6618fd91"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jenis Kelamin :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="316" y="94" width="40" height="14" uuid="5cfa686f-fe86-422d-bc60-2eae6f80e2b0"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jk}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="129" width="90" height="14" uuid="cffdf061-22cd-4748-9877-93b3be8d0dee"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sign Here:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="82" y="155" width="116" height="16" uuid="4d0981b4-2ed1-435b-8662-70d7b054fa77"/>
+				<textFieldExpression><![CDATA[$F{sign_1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="82" y="174" width="116" height="16" uuid="7ae79615-9f62-4509-960f-687837fdb7bf"/>
+				<textFieldExpression><![CDATA[$F{nama_jelas_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="81" y="129" width="90" height="14" uuid="3a5232f2-5ad2-49e9-8a0e-f112a239f376"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sign Here:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="402" y="155" width="116" height="16" uuid="4d0981b4-2ed1-435b-8662-70d7b054fa77"/>
+				<textFieldExpression><![CDATA[$F{sign_2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="402" y="174" width="116" height="16" uuid="4d0981b4-2ed1-435b-8662-70d7b054fa77"/>
+				<textFieldExpression><![CDATA[$F{nama_jelas_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="417" y="31" width="80" height="15" uuid="ab3b86c1-5b5b-4ab2-9366-9179ba7a35a0">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="497" y="31" width="40" height="15" uuid="07496b5d-328b-4202-a983-7adcf4813a4d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

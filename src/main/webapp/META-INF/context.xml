@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+https://www.java4s.com/spring-boot-tutorials/spring-boot-configure-datasource-using-jndi-with-example/
+-->
+
+
+<Context path="/PDFReportProject">
+    <ResourceLink auth="Container" 
+                  driverClassName="org.postgresql.Driver" 
+                  maxActive="20" maxIdle="10" 
+                  maxWait="10000"
+                  name="jdbc/digisign_db" 
+                  global="jdbc/digisign_db" 
+                  type="javax.sql.DataSource" />
+</Context>
