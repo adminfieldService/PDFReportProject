@@ -38,5 +38,9 @@ public class LetakTandaTanganService {
     public List<Letakttd> findByFormatPDF_format_item(Long idformat_pdf, Long id_formatItem) {
         return letakTandaTanganDao.findByFormatPDF_format_item(idformat_pdf, id_formatItem);
     }
+     @Transactional
+    public List<Letakttd> findByFormatPDF(Long idformat_pdf) {
+        return letakTandaTanganDao.findByFormatPDF(idformat_pdf);
+    }
 
 }

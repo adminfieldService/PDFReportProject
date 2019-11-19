@@ -7,10 +7,12 @@ package com.digisign.pdf.controller;
 
 import com.digisign.pdf.entity.FormatItem;
 import com.digisign.pdf.entity.FormatPDF;
+import com.digisign.pdf.entity.Letakttd;
 import com.digisign.pdf.entity.Mitra;
 import com.digisign.pdf.entity.PDFGeneration;
 import com.digisign.pdf.entity.PDFGenerationItem;
 import com.digisign.pdf.entity.TokenMitra;
+import com.digisign.pdf.repo.LetakTandaTanganDao;
 import com.digisign.pdf.service.FormatItemService;
 import com.digisign.pdf.service.FormatPDFService;
 import com.digisign.pdf.service.LetakTandaTanganService;
@@ -34,6 +36,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -339,6 +342,7 @@ public class ControllerPDF {
             FormatPDF formatPDF = null;
             PDFGeneration dataGeneratePDF = new PDFGeneration();
             FormatItem item = null;
+//            Letakttd dataLetakttd = null;
             Resource resource = context.getResource("classpath:reports/" + filePDF + ".jrxml");//jasper
 
 //           System.out.println("resource" + resource);
@@ -354,43 +358,38 @@ public class ControllerPDF {
 //        JSONObject jsonobj = new JSONObject();
             Samba samba = new Samba();
             JSONArray arrayItem = new JSONArray();
-            JSONArray letakTTD = new JSONArray();
+            JSONArray arrayletakTTD = new JSONArray();
 //
 
             Map data = new HashMap();
             List fieldService = new ArrayList();
             Map<String, Object> params = new HashMap<>();
+            List<Letakttd> letakTtd = null;
             List<FormatItem> formatItem = formatItemService.findByIdFormatPdf(idformatPdf);//
+
             System.out.println("formatItem" + formatItem);
             params.put("formatItem : ", formatItem);
             Long idGeneratePdf = 0l;
             if (formatItem != null && !formatItem.isEmpty()) {
 
-                String name = UrlEscapers.urlFragmentEscaper().escape(formatItem.get(0).getFormat_pdf().getMitra().getId() + "_" + time + "_" + formatItem.get(0).getFormat_pdf().getNama_format() + ".pdf");
-
+//                String name = UrlEscapers.urlFragmentEscaper().escape(formatItem.get(0).getFormat_pdf().getMitra().getId() + "_" + time + "_" + formatItem.get(0).getFormat_pdf().getNama_format() + ".pdf");
 //                generatePDF = new PDFGeneration();
-//                List<PDFGeneration> generatePDF = pdfGenerationService.findByFormatPDF(formatItem.get(0).getFormat_pdf().getId());
-//                if (!generatePDF.isEmpty() && generatePDF != null) {
-                System.out.println("!generatePDF.isEmpty() && generatePDF != null");
-//                    dataGeneratePDF = new PDFGeneration();
-//                    dataGeneratePDF = pdfGenerationService.findById(generatePDF.get(0).getId());
-//                    dataGeneratePDF.setFormat_pdf(generatePDF.get(0).getFormat_pdf());
-//                    dataGeneratePDF.setCreatedate(generatePDF.get(0).getCreatedate());
-//                    dataGeneratePDF.setRequest_time(generatePDF.get(0).getRequest_time());
-//                    dataGeneratePDF.setDocument(path + name);//generatePDF.get(0).getDocument()
-//                    pdfGenerationService.udatePDF(dataGeneratePDF);
-//                    updatePdfGenerationItem = pdfGenerationItemService.findById(idPdfGeneration_item);
-//                    pdfGenerationItemService.updatePDFGenertateItem(updatePdfGenerationItem);
-//                } else {
-                System.out.println("generatePDF.isEmpty() && generatePDF == null");
-//                    dataGeneratePDF = new PDFGeneration();
                 dataGeneratePDF.setFormat_pdf(formatItem.get(0).getFormat_pdf());
                 dataGeneratePDF.setCreatedate(now);
                 dataGeneratePDF.setRequest_time(time_now);
-                dataGeneratePDF.setDocument(path + name);
+                dataGeneratePDF.setDocument(null);
+
                 idGeneratePdf = pdfGenerationService.generatePDF(dataGeneratePDF);
+                String name = UrlEscapers.urlFragmentEscaper().escape(formatItem.get(0).getFormat_pdf().getMitra().getId() + "_" + idGeneratePdf.toString() + "_" + formatItem.get(0).getFormat_pdf().getNama_format() + ".pdf");
+                System.out.println("name document" + name);
+//                
+                PDFGeneration updateLinkPDFGeneration = pdfGenerationService.findById(idGeneratePdf);
+                updateLinkPDFGeneration.setDocument(path + name);
+//                
                 updatePdfGenerationItem = pdfGenerationItemService.findById(idPdfGeneration_item);
                 pdfGenerationItemService.updatePDFGenertateItem(updatePdfGenerationItem);
+                letakTtd = letakTandaTanganService.findByFormatPDF(formatItem.get(0).getFormat_pdf().getId());
+
 //                }
                 for (int a = 0; a < formatItem.size(); a++) {
 
@@ -413,14 +412,9 @@ public class ControllerPDF {
                     if (item.isIsstatic() == false) {
                         List<PDFGenerationItem> listgeneratePDFItem = pdfGenerationItemService.findByFormatItem(item.getId());
                         if (listgeneratePDFItem != null && !listgeneratePDFItem.isEmpty()) {
-//                            System.out.println("listgeneratePDFItem != null && !listgeneratePDFItem.isEmpty()");
                             for (int b = 0; b < listgeneratePDFItem.size(); b++) {
 
                                 PDFGenerationItem pdfItem = listgeneratePDFItem.get(b);
-
-//                                obj.put("isStatic", item.isIsstatic());
-//                                obj.put("id_format_item", pdfItem.getFormat_item().getId());
-//                                obj.put("value", pdfItem.getValue());
                                 data.put(item.getItem_name(), pdfItem.getValue());
                             }
 
@@ -428,7 +422,28 @@ public class ControllerPDF {
                     }
 
                     arrayItem.add(obj);
+//                    dataLetakttd = new Letakttd();
+//                    dataLetakttd.setCreatedate(tgl);
+//                    dataLetakttd.setFormat_pdf(formatItem.get(0).getFormat_pdf());
+//                    dataLetakttd.setTtd_ke(1);
+                }
+                if (letakTtd == null && letakTtd.isEmpty()) {
+                    json.put("result", "55");
+                    json.put("message", "Fail");
+                    json.put("notif", "Request Format PDF tidak ditemukan");
+                }
+                for (int c = 0; c < letakTtd.size(); c++) {
+                    System.out.println("for() letakTtd" + letakTtd);
+                    JSONObject obj = new JSONObject();
+                    Letakttd dataLetakttd = letakTtd.get(c);
 
+                    obj.put("letakttd", dataLetakttd.getId());
+                    obj.put("lx", dataLetakttd.getLx());
+                    obj.put("ly", dataLetakttd.getLy());
+                    obj.put("rx", dataLetakttd.getRx());
+                    obj.put("ry", dataLetakttd.getRy());
+
+                    arrayletakTTD.add(obj);
                 }
 //              Data source Set
 //                formatItem.add(item);
@@ -441,15 +456,18 @@ public class ControllerPDF {
 //                System.out.println("jasperPrint" + jasperPrint);
 //                
 //              List<JRPrintPage> page1 = jasperPrint.getPages();
-                JRPrintPage page = jasperPrint.getPages().get(0);
-                List pageElements = page.getElements();
-//                System.out.println("pageElements" + pageElements);
-//                
+//                JRPrintPage page = jasperPrint.getPages().get(0);
+//                List pageElements = page.getElements();
+//                JRPrintPage page = jasperPrint.getPages().get(0);
+//                List pageElements = page.getElements();
+//                System.out.println("pageElements 10" + pageElements.get(10));
+//                System.out.println("pageElements 11" + pageElements.get(11));
+////                
                 //Media Type
                 response.setContentType(MediaType.APPLICATION_PDF_VALUE);
                 JasperExportManager.exportReportToPdfFile(jasperPrint, path + name);
 
-//                samba.openfile()
+//               
 //                
                 String linkDoc = null;
                 String str = null;
@@ -484,18 +502,28 @@ public class ControllerPDF {
 //                    updatePDF.setDocument(samba.toString());
 //                }
 //                }
-
+//                JRPrintPage page = jasperPrint.getPages().get(0);
+//                List pageElements = page.getElements();
+//                System.out.println("pageElements 10" + pageElements.get(10));
+//                System.out.println("pageElements 11" + pageElements.get(11));
+//                List<JRPrintPage> pages = jasperPrint.getPages();
+//                for (Iterator<JRPrintPage> pageIt = pages.iterator(); pageIt.hasNext();) {
+//                    JRPrintPage page = pageIt.next();
+//                    System.out.println("pageElements 50:" + page.getElements().get(50).getSourceElementId() + "," + page.getElements().get(50).getX() + "," + page.getElements().get(50).getY());
+//                    System.out.println("pageElements 51:" + page.getElements().get(51).getSourceElementId() + "," + page.getElements().get(51).getX() + "," + page.getElements().get(51).getY());
+//                }
+//                
                 json.put("result", "00");
                 json.put("message", "Success");
 //                    json.put("mitra_id", item.getFormat_pdf().getMitra().getId());
                 json.put("File", linkDoc);//linkDoc
-                json.put("items", arrayItem);
+                json.put("items", arrayletakTTD);
             } else {
 
                 json.put("result", "55");
                 json.put("message", "Fail");
                 json.put("notif", "Request Format PDF tidak ditemukan");
-                json.put("item", arrayItem);
+                json.put("item", arrayletakTTD);
             }
 
         } catch (IOException ex) {

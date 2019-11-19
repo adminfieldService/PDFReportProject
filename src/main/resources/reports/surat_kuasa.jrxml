@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AcuseCancelacion" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="041fd329-b27d-44e2-9712-5d45bbb4cabd">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML_Acuse_Cancelacion"/>
 	<property name="ireport.zoom" value="1.0"/>
@@ -14,14 +15,12 @@
 	<field name="alamat_2" class="java.lang.String"/>
 	<field name="no_tlp_2" class="java.lang.String"/>
 	<field name="nama_penerima_kuasa" class="java.lang.String"/>
-	<field name="sign_penerima_kuasa" class="java.lang.String"/>
 	<field name="nama_pemberi_kuasa" class="java.lang.String"/>
-	<field name="sign_pemberi_kuasa" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="38" splitType="Immediate">
+		<band height="38" splitType="Stretch">
 			<staticText>
 				<reportElement x="155" y="7" width="256" height="20" uuid="83657516-b5eb-47a6-8e91-3a57cc671748">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -43,25 +42,25 @@
 	<detail>
 		<band height="576" splitType="Stretch">
 			<staticText>
-				<reportElement x="4" y="2" width="228" height="13" uuid="b07a49d3-073b-46b6-962a-a18c1edf9111"/>
+				<reportElement positionType="Float" x="4" y="2" width="250" height="13" uuid="b07a49d3-073b-46b6-962a-a18c1edf9111"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Kami Yang bertanda tangan dibawah ini  :]]></text>
+				<text><![CDATA[Kami Yang bertanda tangan dibawah ini :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="5" y="20" width="10" height="16" uuid="2799c56c-825e-454e-baeb-893fe714143d"/>
+				<reportElement positionType="Float" x="5" y="20" width="10" height="16" uuid="2799c56c-825e-454e-baeb-893fe714143d"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[1.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="17" y="20" width="111" height="16" uuid="860f3e77-9004-4d2e-9d3a-639a6618fd91"/>
+				<reportElement positionType="Float" x="17" y="20" width="111" height="16" uuid="860f3e77-9004-4d2e-9d3a-639a6618fd91"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nama                            :]]></text>
+				<text><![CDATA[Nama                          :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="138" y="20" width="116" height="13" uuid="7ae79615-9f62-4509-960f-687837fdb7bf"/>
@@ -72,7 +71,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tempat/tanggal lahir  :]]></text>
+				<text><![CDATA[Tempat/tanggal lahir :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="139" y="37" width="116" height="13" uuid="8e7d14b7-210f-4720-ac99-e0b3fe7e063c"/>
@@ -83,7 +82,7 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[No. KTP                       :]]></text>
+				<text><![CDATA[No. KTP                      :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="140" y="54" width="116" height="13" uuid="ecac0cda-64a9-4ff8-8ace-a88884103364"/>
@@ -94,46 +93,46 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Alamat                         :]]></text>
+				<text><![CDATA[Alamat                        :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="140" y="71" width="289" height="32" uuid="a6705490-8d3f-4f88-b1b4-a986fe6fe85c"/>
 				<textFieldExpression><![CDATA[$F{alamat_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="18" y="108" width="110" height="14" uuid="0276c3d1-c892-40cc-aea7-5eba54c174d1"/>
+				<reportElement x="18" y="104" width="110" height="14" uuid="0276c3d1-c892-40cc-aea7-5eba54c174d1"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[No. Telepon                 :]]></text>
+				<text><![CDATA[No. Telepon                :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="140" y="107" width="116" height="13" uuid="63bcde1d-b170-4110-b6be-3f1d18dbbd08"/>
+				<reportElement x="140" y="105" width="116" height="13" uuid="63bcde1d-b170-4110-b6be-3f1d18dbbd08"/>
 				<textFieldExpression><![CDATA[$F{no_tlp_1}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="18" y="124" width="462" height="13" uuid="6559bdc7-3ce0-4ce2-a5ed-cd06ecb8971b"/>
 				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Selanjutnya disebut dengan"+"<style isBold='true'>"+" PIHAK I " + "</style>" + "(Pemberi Kuasa)"]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="19" y="246" width="461" height="13" uuid="2b364195-5f9f-4e23-a24e-0b0b668c543d"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="19" y="248" width="461" height="13" uuid="2b364195-5f9f-4e23-a24e-0b0b668c543d"/>
 				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Selanjutnya disebut dengan"+"<style isBold='true'>"+" PIHAK II " + "</style>" + "(Penerima Kuasa)"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="19" y="230" width="110" height="14" uuid="15f42597-1942-44a0-a340-de8b9b105ca7"/>
+				<reportElement x="19" y="227" width="110" height="14" uuid="15f42597-1942-44a0-a340-de8b9b105ca7"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[No. Telepon                 :]]></text>
+				<text><![CDATA[No. Telepon                :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="18" y="143" width="111" height="16" uuid="9b61ae08-83e1-4af9-888e-e9690be12d35"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nama                           :]]></text>
+				<text><![CDATA[Nama                          :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="140" y="160" width="116" height="13" uuid="ea836aea-a32f-4d65-8676-10ff775021e7"/>
@@ -152,14 +151,14 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tempat/tanggal lahir  :]]></text>
+				<text><![CDATA[Tempat/tanggal lahir :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="19" y="178" width="110" height="14" uuid="db6345f3-68fb-4a3e-9714-03b57515bbb9"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[No. KTP                       :]]></text>
+				<text><![CDATA[No. KTP                     :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="6" y="143" width="10" height="16" uuid="e3c0e34f-9317-4cb8-b3e0-427f4ebcefc9"/>
@@ -169,7 +168,7 @@
 				<text><![CDATA[2.]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="141" y="229" width="116" height="13" uuid="4ce14793-bee4-471a-ae23-d3bf925fa93b"/>
+				<reportElement x="141" y="228" width="116" height="13" uuid="4ce14793-bee4-471a-ae23-d3bf925fa93b"/>
 				<textFieldExpression><![CDATA[$F{no_tlp_2}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -177,13 +176,13 @@
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Alamat                         : ]]></text>
+				<text><![CDATA[Alamat                       :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="141" y="193" width="289" height="32" uuid="05765a67-a6c2-4aa5-9d81-0a7cd761974b"/>
 				<textFieldExpression><![CDATA[$F{alamat_2}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="6" y="265" width="423" height="35" uuid="5f28a00a-60f3-4324-b672-2c22aea3a1df"/>
 				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Bahwa "+"<style isBold='true'>"+" PIHAK I " + "</style>" + " memberikan kuasa penuh kepada "+"<style isBold='true'>"+" PIHAK II " + "</style>" + " untuk pengambilan Dokumen di"+"<style isBold='true'>"+" BANK SYARIAH KC. SIDUARJO"+"</style>" + " berupa Surat Tanah :"]]></textFieldExpression>
@@ -299,49 +298,41 @@
 				<reportElement x="198" y="372" width="231" height="13" uuid="32ebfe26-b664-40fe-9d3e-b1ea989cba38"/>
 				<text><![CDATA[: ......................................................................]]></text>
 			</staticText>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="7" y="387" width="453" height="43" uuid="bbeaeb58-f5d7-4c61-983c-01293195882e"/>
 				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Sebagaimana diuraikan dalam Gambar Situasi tanggal..........., dan menurut Sertifikat tanggal ............... terdaftar atas nama .............................. . Berikut bangunan yang berdiri di atas tanah tersebut beserta turutan-turutannya. "]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="8" y="436" width="432" height="34" uuid="8b06e0b8-4ea4-4a25-b4e7-8a3354f33eed"/>
 				<textElement markup="styled"/>
 				<textFieldExpression><![CDATA["Demikian surat kuasa ini dibuat tanpa ada paksaan dari pihak lain agar dapat dipergunakan sebagai mana mestinya."]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="64" y="502" width="90" height="14" uuid="3b0813d7-5b8c-462c-ba67-b41609596a41"/>
+				<reportElement x="64" y="498" width="90" height="14" uuid="3b0813d7-5b8c-462c-ba67-b41609596a41"/>
 				<text><![CDATA[Penerima kuasa:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="64" y="533" width="141" height="13" uuid="d3bb52c8-4041-4cbf-9247-7e522748f154"/>
-				<textFieldExpression><![CDATA[$F{sign_penerima_kuasa}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="64" y="561" width="141" height="13" uuid="d3bb52c8-4041-4cbf-9247-7e522748f154"/>
+				<reportElement x="64" y="563" width="141" height="13" uuid="d3bb52c8-4041-4cbf-9247-7e522748f154"/>
 				<textFieldExpression><![CDATA[$F{nama_penerima_kuasa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="369" y="484" width="128" height="14" uuid="3db9a6a6-4716-4656-b2b9-970e490e394b"/>
+				<reportElement x="369" y="480" width="128" height="14" uuid="3db9a6a6-4716-4656-b2b9-970e490e394b"/>
 				<text><![CDATA[.......,..................................]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="393" y="502" width="90" height="14" uuid="4eef94ca-c502-4446-b512-8df0ec19cae1"/>
+				<reportElement x="393" y="498" width="90" height="14" uuid="4eef94ca-c502-4446-b512-8df0ec19cae1"/>
 				<text><![CDATA[Pemberi kuasa:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="393" y="532" width="128" height="13" uuid="f29adb77-f56f-4c90-945b-6e4d479e5126"/>
-				<textFieldExpression><![CDATA[$F{sign_pemberi_kuasa}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="393" y="561" width="128" height="13" uuid="f29adb77-f56f-4c90-945b-6e4d479e5126"/>
+				<reportElement x="393" y="563" width="128" height="13" uuid="f29adb77-f56f-4c90-945b-6e4d479e5126"/>
 				<textFieldExpression><![CDATA[$F{nama_pemberi_kuasa}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
 		<band height="46" splitType="Stretch">
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="417" y="31" width="80" height="15" uuid="ab3b86c1-5b5b-4ab2-9366-9179ba7a35a0">
 					<property name="local_mesure_unitheight" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>

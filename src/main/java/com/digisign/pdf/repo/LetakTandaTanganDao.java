@@ -75,4 +75,20 @@ public class LetakTandaTanganDao {
 
         }
     }
+
+    public List<Letakttd> findByFormatPDF(Long idformat_pdf) {
+        try {
+            String sql = "from Letakttd as l JOIN FETCH l.format_pdf as u "
+                    + "where u.id = :idformat_pdf";
+            Query query = entityManager.createQuery(sql);
+            query.setParameter("idformat_pdf", idformat_pdf);
+            return (List<Letakttd>) query.getResultList();
+
+        } catch (Exception ex) {
+//            LogSystem.error(getClass(), e);
+            System.out.println("ERROR: " + ex.getMessage());
+            return null;
+
+        }
+    }
 }

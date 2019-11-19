@@ -45,7 +45,7 @@ public class Samba implements DSAPI {
             Session session = connection.authenticate(ac);
 
             // Connect to Share
-            System.out.println("pathnya = " + pathFile);
+//            System.out.println("pathnya = " + pathFile);
             String[] path = pathFile.split("/");
             String pathString = "";
             int i = 2;
@@ -93,7 +93,7 @@ public class Samba implements DSAPI {
             Session session = connection.authenticate(ac);
 
             // Connect to Share
-            System.out.println("pathnya = " + pathFile);
+//            System.out.println("pathnya = " + pathFile);
             String[] path = pathFile.split("/");
             String pathString = "";
 
@@ -144,7 +144,7 @@ public class Samba implements DSAPI {
             Session session = connection.authenticate(ac);
 
             // Connect to Share
-            System.out.println("pathnya = " + pathFile);
+//            System.out.println("pathnya = " + pathFile);
             String[] path = pathFile.split("/");
             String pathString = "";
             int i = 2;
