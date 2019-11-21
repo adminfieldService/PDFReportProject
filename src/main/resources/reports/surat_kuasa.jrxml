@@ -4,23 +4,23 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<field name="nama_jelas_1" class="java.lang.String"/>
-	<field name="ttl_1" class="java.lang.String"/>
-	<field name="no_ktp_1" class="java.lang.String"/>
-	<field name="alamat_1" class="java.lang.String"/>
-	<field name="no_tlp_1" class="java.lang.String"/>
-	<field name="nama_jelas_2" class="java.lang.String"/>
-	<field name="ttl_2" class="java.lang.String"/>
-	<field name="no_ktp_2" class="java.lang.String"/>
-	<field name="alamat_2" class="java.lang.String"/>
-	<field name="no_tlp_2" class="java.lang.String"/>
-	<field name="nama_penerima_kuasa" class="java.lang.String"/>
-	<field name="nama_pemberi_kuasa" class="java.lang.String"/>
+	<field name="sni_nama_jelas_1" class="java.lang.String"/>
+	<field name="sni_ttl_1" class="java.lang.String"/>
+	<field name="sni_no_ktp_1" class="java.lang.String"/>
+	<field name="sni_alamat_1" class="java.lang.String"/>
+	<field name="sni_no_tlp_1" class="java.lang.String"/>
+	<field name="sni_nama_jelas_2" class="java.lang.String"/>
+	<field name="sni_ttl_2" class="java.lang.String"/>
+	<field name="sni_no_ktp_2" class="java.lang.String"/>
+	<field name="sni_alamat_2" class="java.lang.String"/>
+	<field name="sni_no_tlp_2" class="java.lang.String"/>
+	<field name="sni_nama_penerima_kuasa" class="java.lang.String"/>
+	<field name="sni_nama_pemberi_kuasa" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<pageHeader>
-		<band height="38" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<staticText>
 				<reportElement x="155" y="7" width="256" height="20" uuid="83657516-b5eb-47a6-8e91-3a57cc671748">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -34,7 +34,7 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="7" splitType="Stretch">
+		<band splitType="Stretch">
 			<property name="local_mesure_unitheight" value="pixel"/>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</band>
@@ -64,7 +64,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="138" y="20" width="116" height="13" uuid="7ae79615-9f62-4509-960f-687837fdb7bf"/>
-				<textFieldExpression><![CDATA[$F{nama_jelas_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_nama_jelas_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="18" y="38" width="110" height="14" uuid="e26ee5b7-4c09-4a36-8ee1-ab04054a53f3"/>
@@ -75,7 +75,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="139" y="37" width="116" height="13" uuid="8e7d14b7-210f-4720-ac99-e0b3fe7e063c"/>
-				<textFieldExpression><![CDATA[$F{ttl_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_ttl_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="18" y="55" width="110" height="14" uuid="9ffd6b1d-e2ac-413b-8a7a-e93cd9d1ac81"/>
@@ -86,7 +86,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="140" y="54" width="116" height="13" uuid="ecac0cda-64a9-4ff8-8ace-a88884103364"/>
-				<textFieldExpression><![CDATA[$F{no_ktp_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_no_ktp_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="18" y="72" width="110" height="14" uuid="0874fbc1-996c-4976-b70b-6fb4fb839f90"/>
@@ -97,7 +97,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="140" y="71" width="289" height="32" uuid="a6705490-8d3f-4f88-b1b4-a986fe6fe85c"/>
-				<textFieldExpression><![CDATA[$F{alamat_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_alamat_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="18" y="104" width="110" height="14" uuid="0276c3d1-c892-40cc-aea7-5eba54c174d1"/>
@@ -108,7 +108,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="140" y="105" width="116" height="13" uuid="63bcde1d-b170-4110-b6be-3f1d18dbbd08"/>
-				<textFieldExpression><![CDATA[$F{no_tlp_1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_no_tlp_1}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="18" y="124" width="462" height="13" uuid="6559bdc7-3ce0-4ce2-a5ed-cd06ecb8971b"/>
@@ -136,15 +136,15 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="140" y="160" width="116" height="13" uuid="ea836aea-a32f-4d65-8676-10ff775021e7"/>
-				<textFieldExpression><![CDATA[$F{ttl_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_ttl_2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="139" y="143" width="116" height="13" uuid="937b93dd-1095-4e56-b0e0-88855c2db6dd"/>
-				<textFieldExpression><![CDATA[$F{nama_jelas_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_nama_jelas_2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="141" y="177" width="116" height="13" uuid="d057c07e-51d1-4270-8a95-ebe22c8c8592"/>
-				<textFieldExpression><![CDATA[$F{no_ktp_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_no_ktp_2}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="19" y="161" width="110" height="14" uuid="c56a9692-b8ec-4adf-83d6-f35aa5fbbc9a"/>
@@ -169,7 +169,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="141" y="228" width="116" height="13" uuid="4ce14793-bee4-471a-ae23-d3bf925fa93b"/>
-				<textFieldExpression><![CDATA[$F{no_tlp_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_no_tlp_2}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="19" y="195" width="110" height="14" uuid="452ac1e5-87e9-4e99-a3d7-56c89de73bcc"/>
@@ -180,7 +180,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="141" y="193" width="289" height="32" uuid="05765a67-a6c2-4aa5-9d81-0a7cd761974b"/>
-				<textFieldExpression><![CDATA[$F{alamat_2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_alamat_2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="6" y="265" width="423" height="35" uuid="5f28a00a-60f3-4324-b672-2c22aea3a1df"/>
@@ -314,7 +314,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="64" y="563" width="141" height="13" uuid="d3bb52c8-4041-4cbf-9247-7e522748f154"/>
-				<textFieldExpression><![CDATA[$F{nama_penerima_kuasa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_nama_penerima_kuasa}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="369" y="480" width="128" height="14" uuid="3db9a6a6-4716-4656-b2b9-970e490e394b"/>
@@ -326,7 +326,7 @@
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="393" y="563" width="128" height="13" uuid="f29adb77-f56f-4c90-945b-6e4d479e5126"/>
-				<textFieldExpression><![CDATA[$F{nama_pemberi_kuasa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sni_nama_pemberi_kuasa}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

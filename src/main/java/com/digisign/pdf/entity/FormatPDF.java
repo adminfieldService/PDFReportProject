@@ -51,6 +51,8 @@ public class FormatPDF implements Serializable {
     private Date createdate;
     @Column(name = "type_format")
     private String type_format;
+    @Column(name = "prefix_param")
+    private String prefix_param;
 //    @Column(name = "mitra")
 //    private Integer mitra;
     @JsonIgnore
@@ -75,13 +77,14 @@ public class FormatPDF implements Serializable {
 
     }
 
-    public FormatPDF(Long id, String nama_format, String file, Integer jml_ttd, Date createdate, String type_format, Collection<FormatItem> formatItem, Collection<Letakttd> letakttd, Collection<PDFGeneration> pdfGeneration, Mitra mitra) {
+    public FormatPDF(Long id, String nama_format, String file, Integer jml_ttd, Date createdate, String type_format, String prefix_param, Collection<FormatItem> formatItem, Collection<Letakttd> letakttd, Collection<PDFGeneration> pdfGeneration, Mitra mitra) {
         this.id = id;
         this.nama_format = nama_format;
         this.file = file;
         this.jml_ttd = jml_ttd;
         this.createdate = createdate;
         this.type_format = type_format;
+        this.prefix_param = prefix_param;
         this.formatItem = formatItem;
         this.letakttd = letakttd;
         this.pdfGeneration = pdfGeneration;
@@ -136,6 +139,14 @@ public class FormatPDF implements Serializable {
         this.type_format = type_format;
     }
 
+    public String getPrefix_param() {
+        return prefix_param;
+    }
+
+    public void setPrefix_param(String prefix_param) {
+        this.prefix_param = prefix_param;
+    }
+
     public Collection<FormatItem> getFormatItem() {
         return formatItem;
     }
@@ -168,6 +179,7 @@ public class FormatPDF implements Serializable {
         this.mitra = mitra;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 0;

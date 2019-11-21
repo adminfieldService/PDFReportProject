@@ -153,6 +153,7 @@ public class ControllerPDF {
         Long id_Pdfgeneration_item = 0l;
         String nama_pdf = null;
         String nama_file = null;
+        String prefix_param = null;
         String type_pdf = null;
         String mitraName = null;
         String typefile = "download";
@@ -275,6 +276,7 @@ public class ControllerPDF {
                                 dataFormatItem.setIsstatic(isStatic);
                                 value_genertaion_item = itemJsonObject.getString("value");
                                 dataPdfGenerationItem.setValue(value_genertaion_item);
+
                             }
 
                         }
@@ -297,10 +299,13 @@ public class ControllerPDF {
                 nama_pdf = formatPdf.get(0).getNama_format();
                 type_pdf = formatPdf.get(0).getType_format();
                 nama_file = formatPdf.get(0).getFile();
+                prefix_param = formatPdf.get(0).getPrefix_param();
+//                
+                System.out.println("prefix_param" + prefix_param);
                 jsonobj.put("result", "00");
                 jsonobj.put("message", "Success");
 
-                generatePDF(dataPdfGenerationItem, response, jsonobj, idformatPdf, mitraName, idmitra, id_format_item, id_Pdfgeneration_item, nama_pdf, nama_file, time);
+                generatePDF(dataPdfGenerationItem, response, jsonobj, idformatPdf, mitraName, idmitra, id_format_item, id_Pdfgeneration_item, nama_pdf, nama_file, time, prefix_param);
             }
 
 //            formatPdf = formatPDFService.selectFormatPDF(nama_format.toLowerCase(), idmitra);
@@ -329,14 +334,11 @@ public class ControllerPDF {
 
 //    @PostMapping(path = "/api/generatePDF.html")
 //    @ResponseBody
-    public String generatePDF(PDFGenerationItem updatePdfGenerationItem, HttpServletResponse response, JSONObject json, Long idformatPdf, String mitraName, Long idmitra, Long idFormat_item, Long idPdfGeneration_item, String namaPDF, String filePDF, String time) throws JRException {
+    public String generatePDF(PDFGenerationItem updatePdfGenerationItem, HttpServletResponse response, JSONObject json, Long idformatPdf, String mitraName, Long idmitra, Long idFormat_item, Long idPdfGeneration_item, String namaPDF, String filePDF, String time, String prefix_param) throws JRException {
         InputStream inputStream = null;
         String cekLink = null;
         try {
             System.out.println("insert method generatePDF");
-            //        JSONObject jsonobj = new JSONObject();
-//          Long idmitra = 0l;
-//          Long idformatPdf = 0l;
             sdf.format(now);
             jamFormat.format(time_now);
             FormatPDF formatPDF = null;
@@ -366,8 +368,7 @@ public class ControllerPDF {
             Map<String, Object> params = new HashMap<>();
             List<Letakttd> letakTtd = null;
             List<FormatItem> formatItem = formatItemService.findByIdFormatPdf(idformatPdf);//
-
-            System.out.println("formatItem" + formatItem);
+//            System.out.println("formatItem" + formatItem);
             params.put("formatItem : ", formatItem);
             Long idGeneratePdf = 0l;
             if (formatItem != null && !formatItem.isEmpty()) {
@@ -385,9 +386,13 @@ public class ControllerPDF {
 //                
                 PDFGeneration updateLinkPDFGeneration = pdfGenerationService.findById(idGeneratePdf);
                 updateLinkPDFGeneration.setDocument(path + name);
-//                
+                pdfGenerationService.udatePDF(updateLinkPDFGeneration);
+//              
+
                 updatePdfGenerationItem = pdfGenerationItemService.findById(idPdfGeneration_item);
+//                updatePdfGenerationItem.setPdf_generation(updateLinkPDFGeneration);
                 pdfGenerationItemService.updatePDFGenertateItem(updatePdfGenerationItem);
+//                
                 letakTtd = letakTandaTanganService.findByFormatPDF(formatItem.get(0).getFormat_pdf().getId());
 
 //                }
@@ -406,16 +411,15 @@ public class ControllerPDF {
                     obj.put("item_format_style", item.getFormat_format_style());
                     obj.put("max_char", item.getMax_char());
                     obj.put("isStatic", item.isIsstatic());
-//                    if (item.isIsstatic() == true) {
-//                        obj.put("value", item.getValue());
-//                    } else
+//                    
                     if (item.isIsstatic() == false) {
                         List<PDFGenerationItem> listgeneratePDFItem = pdfGenerationItemService.findByFormatItem(item.getId());
                         if (listgeneratePDFItem != null && !listgeneratePDFItem.isEmpty()) {
                             for (int b = 0; b < listgeneratePDFItem.size(); b++) {
 
                                 PDFGenerationItem pdfItem = listgeneratePDFItem.get(b);
-                                data.put(item.getItem_name(), pdfItem.getValue());
+                                System.out.println("prefix_param + item.getItem_name(), pdfItem.getValue() :" + prefix_param + item.getItem_name() + pdfItem.getValue());
+                                data.put(prefix_param + item.getItem_name(), pdfItem.getValue());
                             }
 
                         }
@@ -446,13 +450,14 @@ public class ControllerPDF {
                     arrayletakTTD.add(obj);
                 }
 //              Data source Set
-//                formatItem.add(item);
                 fieldService.add(data);
 //                JRDataSource dataSource = new JRBeanCollectionDataSource(formatItem);
                 JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(fieldService);
                 params.put("datasource", dataSource);
                 //Make jasperPrint
+//                System.out.println("dataSource" + dataSource);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);//new JREmptyDataSource()
+                System.out.println("jasperPrint" + jasperPrint);
 //                System.out.println("jasperPrint" + jasperPrint);
 //                
 //              List<JRPrintPage> page1 = jasperPrint.getPages();
@@ -477,9 +482,6 @@ public class ControllerPDF {
 //                File namaFile = null;
 //                List<FileItem> fileSave = new ArrayList<FileItem>();
                 try {
-//                        linkDoc = AESEncryption.encryptDoc(String.valueOf(dataGeneratePDF.getDocument()));
-//                        linkDoc =;
-//                        linkDoc = Base64.getEncoder().encodeToString(dataGeneratePDF.getDocument().getBytes());
                     input_file = Files.readAllBytes(Paths.get(dataGeneratePDF.getDocument()));
                     encodedBytes = Base64.getEncoder().encode(input_file);
                     linkDoc = new String(encodedBytes);
