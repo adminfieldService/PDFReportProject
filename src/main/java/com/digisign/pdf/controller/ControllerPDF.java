@@ -390,6 +390,8 @@ public class ControllerPDF {
 //              
 
                 updatePdfGenerationItem = pdfGenerationItemService.findById(idPdfGeneration_item);
+//                int i = pdfGenerationItemService.setIdPdfGnerate(idGeneratePdf);
+//                System.out.println("return i:" + i);
 //                updatePdfGenerationItem.setPdf_generation(updateLinkPDFGeneration);
                 pdfGenerationItemService.updatePDFGenertateItem(updatePdfGenerationItem);
 //                

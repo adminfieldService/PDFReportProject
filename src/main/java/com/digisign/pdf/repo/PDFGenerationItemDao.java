@@ -70,4 +70,17 @@ public class PDFGenerationItemDao {
 
         }
     }
+
+    public int setIdPdfGnerate(Long idPdfGenerate) {
+        try {
+//            entityManager.createQuery("Update PDFGenerationItem Item SET Item.pdf_generation =\"" + idPdfGenerate + "\" where Item.format_item.format_pdf.id =\"" + idPdfGenerate + "\"").executeUpdate();
+            String sql = "Update PDFGenerationItem Item SET pdf_generation =\'" + idPdfGenerate + "\' where Item.format_item.format_pdf.id =\'" + idPdfGenerate + "\'";
+            Query query = entityManager.createQuery(sql);
+            return query.executeUpdate();
+        } catch (Exception ex) {
+//            LogSystem.error(getClass(), e);
+            System.out.println("ERROR: " + ex.getMessage());
+            return 0;
+        }
+    }
 }

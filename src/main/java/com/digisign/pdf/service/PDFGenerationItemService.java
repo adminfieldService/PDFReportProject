@@ -45,4 +45,9 @@ public class PDFGenerationItemService {
     public List<PDFGenerationItem> findByFormatItem(Long idFormatItem) {
         return pdfGenerationItemDao.findByFormatItem(idFormatItem);
     }
+
+    @Transactional
+    public int setIdPdfGnerate(Long idPdfGenerate) {
+        return pdfGenerationItemDao.setIdPdfGnerate(idPdfGenerate);
+    }
 }
