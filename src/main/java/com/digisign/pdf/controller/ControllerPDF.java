@@ -490,7 +490,7 @@ public class ControllerPDF {
 
 //                        byte[] decodedBytes = Base64.getDecoder().decode(encodedString.getBytes());
 //                        str = new String(decoder);
-                } catch (Exception ex) {
+                } catch (IOException ex) {
                     java.util.logging.Logger.getLogger(ControllerPDF.class.getName()).log(Level.SEVERE, null, ex);
                 }
 //                
@@ -519,11 +519,10 @@ public class ControllerPDF {
 //                
                 json.put("result", "00");
                 json.put("message", "Success");
-//                    json.put("mitra_id", item.getFormat_pdf().getMitra().getId());
+//              json.put("mitra_id", item.getFormat_pdf().getMitra().getId());
                 json.put("File", linkDoc);//linkDoc
                 json.put("items", arrayletakTTD);
             } else {
-
                 json.put("result", "55");
                 json.put("message", "Fail");
                 json.put("notif", "Request Format PDF tidak ditemukan");
