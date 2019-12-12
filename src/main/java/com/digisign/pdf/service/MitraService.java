@@ -7,7 +7,6 @@ package com.digisign.pdf.service;
 
 import com.digisign.pdf.entity.Mitra;
 import com.digisign.pdf.repo.MitraDao;
-import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

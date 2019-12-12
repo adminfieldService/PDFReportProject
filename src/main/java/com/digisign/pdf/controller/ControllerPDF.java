@@ -12,7 +12,6 @@ import com.digisign.pdf.entity.Mitra;
 import com.digisign.pdf.entity.PDFGeneration;
 import com.digisign.pdf.entity.PDFGenerationItem;
 import com.digisign.pdf.entity.TokenMitra;
-import com.digisign.pdf.repo.LetakTandaTanganDao;
 import com.digisign.pdf.service.FormatItemService;
 import com.digisign.pdf.service.FormatPDFService;
 import com.digisign.pdf.service.LetakTandaTanganService;
@@ -36,7 +35,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Iterator;
 import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,7 +55,6 @@ import net.sf.json.JSONObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONSerializer;
-import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -168,56 +165,84 @@ public class ControllerPDF {
         Mitra mitra = null;
         PDFGenerationItem dataPdfGenerationItem = null;
         List<FormatPDF> formatPdf = null;
+        Long idMitra = 0l;
+//        String token = request.getHeader("authorization");
 
-        String token = request.getHeader("authorization");
-
-        if (token != null) {
-//            System.out.println("token != null");
-            String[] split = token.split(" ");
-            if (split.length == 2) {
-                if (split[0].equals("Bearer")) {
-                    token = split[1];
-                }
-            }
-//            System.out.println("isi token" + token);
-
-            try {
-                jsonobj.put("refTrx", refTrx);
-            } catch (JSONException e2) {
-                // TODO Auto-generated catch block
-                e2.printStackTrace();
-            }
-
-            List<TokenMitra> tm = tokenMitraService.findByToken(token.toLowerCase());//
-            if (tm != null && !tm.isEmpty()) {//
-                LogSystem.info(request, "ada Token = " + token, kelas, refTrx, trxType);
-                mitra = tm.get(0).getMitra();
-
-            } else {
-//                System.out.println("Token null = " + token + kelas + refTrx + trxType);
-                LogSystem.error(request, "Token null ", kelas, refTrx, trxType);
-
-                jsonobj.put("result", "55");
-                jsonobj.put("notif", "token salah");
-                LogSystem.response(request, jsonobj, kelas, refTrx, trxType);
-                return jsonobj.toString();
-            }
-            idmitra = mitra.getId();
-            mitraName = mitra.getName();
-
-            System.out.println("idmitra" + idmitra);
-            System.out.println("isi nama_format" + nama_format);
+//        if (token != null) {
+////            System.out.println("token != null");
+//            String[] split = token.split(" ");
+//            if (split.length == 2) {
+//                if (split[0].equals("Bearer")) {
+//                    token = split[1];
+//                }
+//            }
+////            System.out.println("isi token" + token);
+//
+//            try {
+//                jsonobj.put("refTrx", refTrx);
+//            } catch (JSONException e2) {
+//                // TODO Auto-generated catch block
+//                e2.printStackTrace();
+//            }
+//
+//            List<TokenMitra> tm = tokenMitraService.findByToken(token.toLowerCase());//
+//            if (tm != null && !tm.isEmpty()) {//
+//                LogSystem.info(request, "ada Token = " + token, kelas, refTrx, trxType);
+//                mitra = tm.get(0).getMitra();
+//
+//            } else {
+////                System.out.println("Token null = " + token + kelas + refTrx + trxType);
+//                LogSystem.error(request, "Token null ", kelas, refTrx, trxType);
+//
+//                jsonobj.put("result", "55");
+//                jsonobj.put("notif", "token salah");
+//                LogSystem.response(request, jsonobj, kelas, refTrx, trxType);
+//                return jsonobj.toString();
+//            }
+//            idmitra = mitra.getId();
+//            mitraName = mitra.getName();
+//
+//            System.out.println("idmitra" + idmitra);
+//            System.out.println("isi nama_format" + nama_format);
 //            
+        if (obj.size() > 0) {
+
             for (int i = 0; i < obj.size(); i++) {
+
                 JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(obj.getString("JSONFile"));
                 nama_format = jsonObject.getString("nama_format");
+                idMitra = Long.parseLong(jsonObject.getString("id_mitra"));
                 JSONArray jsonArray = (JSONArray) JSONSerializer.toJSON(jsonObject.getString("items"));//jsonObject.get("items");
+                List<TokenMitra> tm = tokenMitraService.findByIdMitra(idMitra);//
 
+                if (tm != null && !tm.isEmpty()) {//
+                    LogSystem.info(request, "Mitra Found= " + tm.get(0).getMitra(), kelas, refTrx, trxType);
+                    mitra = tm.get(0).getMitra();
+
+                } else {
+
+                    LogSystem.error(request, "Mitra Not Found ", kelas, refTrx, trxType);
+
+                    jsonobj.put("result", "55");
+                    jsonobj.put("notif", "token salah");
+                    LogSystem.response(request, jsonobj, kelas, refTrx, trxType);
+                    return jsonobj.toString();
+                }
+
+                idmitra = mitra.getId();
+                mitraName = mitra.getName();
+//
+                System.out.println("idmitra" + idmitra);
+                System.out.println("isi nama_format" + nama_format);
+//                
                 formatPdf = formatPDFService.selectFormatPDF(nama_format.toLowerCase(), idmitra);
+//                
                 if (formatPdf.isEmpty()) {
+
                     jsonobj.put("result", "55");
                     jsonobj.put("message", "Fail");
                     jsonobj.put("notif", "Request Format PDF tidak ditemukan");
+
                 } else {
 
                     for (int j = 0; j < jsonArray.size(); j++) {
@@ -361,6 +386,7 @@ public class ControllerPDF {
             Samba samba = new Samba();
             JSONArray arrayItem = new JSONArray();
             JSONArray arrayletakTTD = new JSONArray();
+            String fileName = null;
 //
 
             Map data = new HashMap();
@@ -444,6 +470,7 @@ public class ControllerPDF {
                     Letakttd dataLetakttd = letakTtd.get(c);
 
                     obj.put("letakttd", dataLetakttd.getId());
+                    obj.put("page", dataLetakttd.getPage());
                     obj.put("lx", dataLetakttd.getLx());
                     obj.put("ly", dataLetakttd.getLy());
                     obj.put("rx", dataLetakttd.getRx());
@@ -520,7 +547,8 @@ public class ControllerPDF {
                 json.put("result", "00");
                 json.put("message", "Success");
 //              json.put("mitra_id", item.getFormat_pdf().getMitra().getId());
-                json.put("File", linkDoc);//linkDoc
+                json.put("fileName", name);//linkDoc
+                json.put("file", linkDoc);//linkDoc
                 json.put("items", arrayletakTTD);
             } else {
                 json.put("result", "55");

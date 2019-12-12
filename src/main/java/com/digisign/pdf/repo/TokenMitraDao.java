@@ -43,6 +43,21 @@ public class TokenMitraDao {
         }
     }
 
+    public List<TokenMitra> findByIdMitra(Long idMitra) {
+        try {
+//            String sql = "from FormatItem where format_pdf.id =: idformat_pdf";
+            String sql = "from TokenMitra as t JOIN fetch t.mitra as m where m.id = :idMitra";
+            Query query = entityManager.createQuery(sql);
+            query.setParameter("idMitra", idMitra);
+            return (List<TokenMitra>) query.getResultList();
+        } catch (Exception ex) {
+//            LogSystem.error(getClass(), e);
+            System.out.println("ERROR: " + ex.getMessage());
+            return null;
+
+        }
+    }
+
     public List<TokenMitra> selectToken() {
         try {
             String sql = "from TokenMitra";

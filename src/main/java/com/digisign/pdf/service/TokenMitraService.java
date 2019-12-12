@@ -37,4 +37,10 @@ public class TokenMitraService {
 //        System.out.println("findByToken" + token);
         return tokenMitraDao.findByToken(token);
     }
+
+    @Transactional
+    public List<TokenMitra> findByIdMitra(Long idMitra) {
+//        System.out.println("findByToken" + token);
+        return tokenMitraDao.findByIdMitra(idMitra);
+    }
 }
