@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AcuseCancelacion" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="041fd329-b27d-44e2-9712-5d45bbb4cabd">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML_Acuse_Cancelacion"/>
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="0"/>
+    <property name="ireport.y" value="148"/>
+    <field name="acc_no_surat" class="java.lang.String"/>
+    <field name="acc_nama_pemberi_kuasa" class="java.lang.String"/>
+    <field name="acc_jabatan_pemberi_kuasa" class="java.lang.String"/>
+    <field name="acc_nama_penerima_kuasa" class="java.lang.String"/>
+    <field name="acc_jabatan_penerima_kuasa" class="java.lang.String"/>
+    <field name="acc_area" class="java.lang.String"/>
+    <field name="acc_alamat_kancab" class="java.lang.String"/>
+    <field name="acc_merek_jenis_tahun_kendaraan" class="java.lang.String"/>
+    <field name="acc_no_rangka_kendaraan" class="java.lang.String"/>
+    <field name="acc_no_mesin_kendaraan" class="java.lang.String"/>
+    <field name="acc_no_polisi_kendaraan" class="java.lang.String"/>
+    <field name="acc_warna_kendaraan" class="java.lang.String"/>
+    <field name="acc_nama_nasabah" class="java.lang.String"/>
+    <field name="acc_alamat_nasabah" class="java.lang.String"/>
+    <field name="acc_no_perjanjian_pembiayaan" class="java.lang.String"/>
+    <field name="acc_kota_tgl_srt_kuasa" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <pageHeader>
+        <band height="71" splitType="Stretch">
+            <image>
+                <reportElement x="13" y="1" width="69" height="69" uuid="ad6dd57f-b60e-4337-a574-2fda1e5e8b35">
+                </reportElement>
+                <imageExpression><![CDATA["../img/logo_baru_ACC-1410.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="248" y="1" width="256" height="19" uuid="83657516-b5eb-47a6-8e91-3a57cc671748">
+                    <property name="local_mesure_unitheight" value="pixel"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified">
+                    <font size="13" isBold="true"/>
+                </textElement>
+                <text><![CDATA[SURAT KUASA]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="83" y="15" width="440" height="19" uuid="e6bb1cdc-49d6-40ea-922e-002295209052"/>
+                <box topPadding="0" leftPadding="10" bottomPadding="0" rightPadding="0"/>
+                <textElement textAlignment="Center" markup="html">
+                    <font size="13" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["<b><u> PELAKSANAAN EKSEKUSI KENDARAAN FIDUSIA </u></b>"]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="248" y="34" width="26" height="16" uuid="52df7b5c-7ed5-4612-a052-f64557e52a17"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[No ]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="287" y="34" width="261" height="13" uuid="74ad044f-3efc-43af-ab12-5e1cfba9cb44">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{acc_no_surat}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band splitType="Stretch">
+            <property name="local_mesure_unitheight" value="pixel"/>
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="670" splitType="Prevent">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement positionType="Float" x="4" y="2" width="250" height="13" uuid="b07a49d3-073b-46b6-962a-a18c1edf9111"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Yang bertanda tangan dibawah ini :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="58" y="20" width="47" height="16" uuid="860f3e77-9004-4d2e-9d3a-639a6618fd91"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nama]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="124" y="20" width="357" height="13" uuid="7ae79615-9f62-4509-960f-687837fdb7bf"/>
+                <textFieldExpression><![CDATA[$F{acc_nama_pemberi_kuasa}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="59" y="38" width="46" height="14" uuid="e26ee5b7-4c09-4a36-8ee1-ab04054a53f3"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Jabatan ]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="125" y="38" width="356" height="13" uuid="8e7d14b7-210f-4720-ac99-e0b3fe7e063c">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{acc_jabatan_pemberi_kuasa}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="5" y="57" width="575" height="33" uuid="6559bdc7-3ce0-4ce2-a5ed-cd06ecb8971b"/>
+                <textElement textAlignment="Justified" markup="styled"/>
+                <textFieldExpression><![CDATA["Dalam hal ini bertindak untuk dan atas nama"+"<style isBold='true'>"+" PT. ASTRA SEDAYA FINANCE" + "</style>" + ", yang berkedudukan di "+$F{acc_area}+" dengan kantor cabang di "+$F{acc_alamat_kancab}+" , selanjutnya disebut <b>PEMBERI KUASA</b>, dengan ini memberi Kuasa kepada:"]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement positionType="Float" x="57" y="91" width="47" height="16" uuid="860f3e77-9004-4d2e-9d3a-639a6618fd91"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nama]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement positionType="Float" x="123" y="91" width="357" height="13" uuid="7ae79615-9f62-4509-960f-687837fdb7bf"/>
+                <textFieldExpression><![CDATA[$F{acc_nama_penerima_kuasa}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement positionType="Float" x="58" y="109" width="46" height="14" uuid="e26ee5b7-4c09-4a36-8ee1-ab04054a53f3"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Jabatan ]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement positionType="Float" x="124" y="109" width="356" height="13" uuid="8e7d14b7-210f-4720-ac99-e0b3fe7e063c">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{acc_jabatan_penerima_kuasa}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="4" y="126" width="576" height="25" uuid="2b364195-5f9f-4e23-a24e-0b0b668c543d"/>
+                <textElement textAlignment="Justified" markup="styled"/>
+                <textFieldExpression><![CDATA["Dalam hal ini bertindak untuk dan atas nama"+"<style forecolor='red' isBold='true'>"+" PT. Pratama Sadya Sadana" +"</style>"+" selaku "+"<style isBold='true'>"+" Petugas Eksekusi Objek Jaminan Fidusia" +"</style>"+", selanjutnya disebut"+"<style isBold='true'>"+ " PENERIMA KUASA" +"</style>"+"."]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement positionType="Float" x="4" y="146" width="568" height="13" uuid="f335b9cc-159e-442f-83eb-7b6ca46ddc01"/>
+                <textElement textAlignment="Justified">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[--------------------------------------------------------------------------K H U S U S----------------------------------------------------------------------------]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="4" y="161" width="423" height="17" uuid="5f28a00a-60f3-4324-b672-2c22aea3a1df"/>
+                <textElement textAlignment="Justified" markup="styled"/>
+                <textFieldExpression><![CDATA["Untuk dan atas nama "+"<style isBold='true'>"+" PEMBERI KUASA " + "</style>" + " :"]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="4" y="174" width="574" height="18" uuid="bbeaeb58-f5d7-4c61-983c-01293195882e"/>
+                <textElement textAlignment="Justified" markup="styled"/>
+                <textFieldExpression><![CDATA["Melaksanakan Eksekusi atas Kendaraan Fidusia berupa kendaraan dengan spesifikasi :"]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="75" y="188" width="173" height="13" uuid="7bb3e612-ba4f-43f9-8e76-da9e0595929f"/>
+                <textElement>
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[Merek/Jenis/Tahun]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="110" y="20" width="12" height="16" uuid="6852ef80-4ea8-434a-8417-b59d9b1a0d6e">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="269" y="188" width="309" height="13" uuid="9e26be0f-d2bb-486a-8f58-0154581498ea"/>
+                <textFieldExpression><![CDATA[$F{acc_merek_jenis_tahun_kendaraan}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="76" y="203" width="173" height="13" uuid="aa3e733c-50df-42ba-b9b7-a9e996c3d6fb"/>
+                <textElement>
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[No. Rangka]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="255" y="188" width="14" height="13" uuid="0f9a2b24-1566-4d96-a410-68afd5a9a695"/>
+                <text><![CDATA[: ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="77" y="218" width="173" height="13" uuid="35dbe609-4663-446e-afae-397a75767ba8"/>
+                <textElement>
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[No. Mesin]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="255" y="203" width="14" height="13" uuid="08a35499-6054-4047-b035-602dd3c723b2"/>
+                <text><![CDATA[: ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="255" y="218" width="14" height="13" uuid="ee023e7c-3073-41a0-98b7-30154e931682"/>
+                <text><![CDATA[: ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="77" y="234" width="142" height="13" uuid="a7f6e398-9673-4cbd-9483-d246577f093e"/>
+                <textElement>
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[No. Polisi]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="255" y="234" width="14" height="13" uuid="790bf8d0-7ffa-447d-953f-5d02bcbf6c10"/>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="77" y="248" width="142" height="13" uuid="cb1c6749-4fdf-4abb-838c-cbb64fb67bf1"/>
+                <textElement>
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[Warna]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="255" y="248" width="14" height="13" uuid="0aa08a7a-cf6b-4f04-b8d9-614890e84b53"/>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="77" y="262" width="402" height="13" uuid="30d9ccd1-ac66-44de-9c7e-0e00e82cd358"/>
+                <textElement>
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[(selanjutnya disebut kendaraan)]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="4" y="277" width="576" height="101" uuid="8b06e0b8-4ea4-4a25-b4e7-8a3354f33eed"/>
+                <textElement textAlignment="Justified" markup="styled"/>
+                <textFieldExpression><![CDATA["dari <b>Nasabah</b> atas nama "+$F{acc_nama_nasabah}+", alamat "+$F{acc_alamat_nasabah}+" atau pihak ketiga lainnya yang menguasai Kendaraan untuk diserahkan kepada Pemberi KUasa selaku pemegang hak objek jamina fidusia sesuai Perjanjian Pembiayaan No. "+$F{acc_no_perjanjian_pembiayaan}+". Dalam melaksanakan Kuasa tersebut Penerima Kuasa berwenang untuk menghubungi dan/atau menemui Nasabah/pihak ketiga yang menguasai Kendaraan untuk meminta penyerahan kembali kendaraan dalam rangka eksekusi fidusia ini dengan waktu dan cara yang dibenarkan oleh UU, membuat, menandatangani, meminta tanda tangan serta memberikan lembar copy Berita Acara Penyerahan Kendaraan kepada pihak yang menyerahkan kendaran."]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement positionType="Float" x="46" y="596" width="90" height="14" uuid="3b0813d7-5b8c-462c-ba67-b41609596a41">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <text><![CDATA[PENERIMA KUASA]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement positionType="Float" x="46" y="657" width="257" height="13" uuid="d3bb52c8-4041-4cbf-9247-7e522748f154"/>
+                <textFieldExpression><![CDATA[$F{acc_nama_penerima_kuasa}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement positionType="Float" x="318" y="582" width="258" height="14" uuid="3db9a6a6-4716-4656-b2b9-970e490e394b"/>
+                <textElement textAlignment="Justified"/>
+                <textFieldExpression><![CDATA[$F{acc_kota_tgl_srt_kuasa}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement positionType="Float" x="318" y="596" width="90" height="14" uuid="4eef94ca-c502-4446-b512-8df0ec19cae1"/>
+                <textElement textAlignment="Justified"/>
+                <text><![CDATA[PEMBERI KUASA]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement positionType="Float" x="318" y="657" width="260" height="13" uuid="f29adb77-f56f-4c90-945b-6e4d479e5126"/>
+                <textFieldExpression><![CDATA[$F{acc_nama_pemberi_kuasa}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="110" y="38" width="12" height="16" uuid="5c4674d3-48e5-48d0-b367-ab9f848994cc">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement positionType="Float" x="109" y="109" width="12" height="13" uuid="800b5e0c-3a91-4bf2-a27f-578c2d46faa0">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement positionType="Float" x="109" y="91" width="12" height="16" uuid="295a867f-16b2-42a9-be5f-fcede347ac8c"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="269" y="205" width="309" height="13" uuid="602aa48a-4ff8-4c24-8bf4-09038a68ecd7"/>
+                <textFieldExpression><![CDATA[$F{acc_no_rangka_kendaraan}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="269" y="220" width="309" height="13" uuid="75940b97-c31e-4183-b599-1f64d088e7fe"/>
+                <textFieldExpression><![CDATA[$F{acc_no_mesin_kendaraan}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="269" y="235" width="309" height="13" uuid="412b71fe-aa3e-43e3-bffa-4c1565c3feab"/>
+                <textFieldExpression><![CDATA[$F{acc_no_polisi_kendaraan}]]></textFieldExpression>
+            </textField>
+            <textField isStretchWithOverflow="true">
+                <reportElement x="269" y="249" width="309" height="13" uuid="07e00767-0b22-4f35-948f-ab50bb9d91a8"/>
+                <textFieldExpression><![CDATA[$F{acc_warna_kendaraan}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="4" y="378" width="402" height="13" uuid="31a1ff06-6af3-4519-969d-78d2459af739"/>
+                <textElement textAlignment="Justified">
+                    <font isBold="false"/>
+                </textElement>
+                <text><![CDATA[Kuasa ini diberikan dengan ketentuan sebagai berikut :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="22" y="395" width="560" height="16" uuid="b13adf9f-a5c8-4241-9192-f63115c8a86a">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["-    Kuasa ini tidak dapat disubstitusikan baik sebagian atau keseluruhan kepada pihak ketiga;<br/>"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="407" width="560" height="16" uuid="d94c83cf-211b-4f14-b51e-d4c4f4a81561">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["-    Kuasa ini TIDAK UNTUK MENERIMA PEMBAYARAN DALAM BENTUK APAPUN dari Nasabah atau<br/>"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="419" width="560" height="16" uuid="4c72d2c5-8db4-4800-ad29-24b9d64d2167">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["     pihak yang menguasai Kendaraan;"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="432" width="560" height="16" uuid="3354b389-f237-48a8-b369-a835ad2b1ced">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["-    Apabila diperlukan demi terlaksananya kuasa ini Penerima Kuasa diberikan hak untuk memberitahukan<br/>"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="444" width="560" height="16" uuid="c916fc8e-6d1e-4c52-8cd1-bb35c66721ea">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["     dan/atau meminta bantuan aparat hukum yang berwenang;"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="457" width="560" height="16" uuid="09797f35-ca69-484c-a951-7c6110ae138f">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["-    Penerima Kuasa wajib menyerahkan Kendaraan ke kantor atau perwakilan ACC terdekat yang ditunjuk<br/>"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="469" width="560" height="16" uuid="b37940eb-82db-4216-92f0-326e20839a36">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["     paling lambat 1 x 24 jam sejak diterimanya Kendaraan dari Nasabah/pihak ketiga;"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="496" width="560" height="16" uuid="cbdc6e57-e9c0-47a1-9fcc-dee96f87c30c">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["     hukum yang berlaku;"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="484" width="560" height="16" uuid="78437b40-5b82-4351-ad06-3a99bc0d960a">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["-    Dalam menjalankan Kuasa ini Penerima Kuasa wajib untuk mentaati dan melaksanakan ketentuan<br/>"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="20" y="520" width="560" height="16" uuid="b9cf6d32-9ee3-4cbe-8c18-332a188a3056">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["      Surat Kuasa ini dan/atau tindakan pelanggaran hukum yang dilakukan Penerima Kuasa akan menjadi"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="508" width="560" height="16" uuid="16a08258-a7f5-48b5-929c-8da939452cc8">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["-    Atas segala resiko hukum yang ditimbulkan akibat tindakan di luar ketentuan yang ditetapkan dalam<br/>"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="20" y="531" width="560" height="16" uuid="9aade0eb-ac9d-40d9-9ddb-ce5e79fdb7ed">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["      tanggung jawab Penerima Kuasa sepenuhnya, dan Pemberi Kuasa/ACC dibebaskan dari segala"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="22" y="543" width="560" height="16" uuid="413dec91-a74f-4c6d-a5cf-e9f929a5c5b3">
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Justified" markup="styled">
+                    <paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
+                </textElement>
+                <textFieldExpression><![CDATA["-    Surat Kuasa ini berlaku 7 (tujuh) hari sejak tanggal yang tertera di bawah ini atau sampai dengan<br/>"]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>
