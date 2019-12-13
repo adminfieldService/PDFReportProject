@@ -252,14 +252,14 @@ public class ControllerPDF {
                         dataPdfGenerationItem = new PDFGenerationItem();
 
 //                        System.out.println("isi Json Array : " + item_name + "," + item_format + "," + max_char + "," + value + "," + isStatic);
-                        if (itemJsonObject.getString("item_name") != null) {
+                        if (itemJsonObject.containsKey("item_name")) {
                             item_name = itemJsonObject.getString("item_name");
                             dataFormatItem.setItem_name(item_name);
                             dataFormatItem.setFormat_pdf(formatPdf.get(0));
                         } else {
                             item_name = null;
                         }
-                        if (itemJsonObject.getString("item_format") != null) {
+                        if (itemJsonObject.containsKey("item_format")) {
                             item_format = itemJsonObject.getString("item_format");
                             dataFormatItem.setItem_format(item_format);
                         } else {
@@ -276,9 +276,13 @@ public class ControllerPDF {
                         } else {
                             item_format_style = null;
                         }
-                        if (itemJsonObject.getString("max_char") != null) {
-                            max_char = itemJsonObject.getString("max_char");
-                            dataFormatItem.setMax_char(Integer.parseInt(max_char));
+                        if (itemJsonObject.containsKey("max_char")) {
+                            if (itemJsonObject.getString("max_char") != null) {
+                                max_char = itemJsonObject.getString("max_char");
+                                dataFormatItem.setMax_char(Integer.parseInt(max_char));
+                            } else {
+                                max_char = null;
+                            }
                         } else {
                             max_char = null;
                         }
@@ -287,7 +291,7 @@ public class ControllerPDF {
 //                        } else {
 //                            value = null;
 //                        }
-                        if (itemJsonObject.getBoolean("isStatic") == true) {
+                        if (itemJsonObject.containsKey("value")) {
                             isStatic = true;
                             if (itemJsonObject.getString("value") != null) {
                                 value = itemJsonObject.getString("value");

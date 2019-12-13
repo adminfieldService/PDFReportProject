@@ -25,11 +25,11 @@
     </background>
     <pageHeader>
         <band height="71" splitType="Stretch">
-            <image>
+<!--            <image isLazy="true">
                 <reportElement x="13" y="1" width="69" height="69" uuid="ad6dd57f-b60e-4337-a574-2fda1e5e8b35">
                 </reportElement>
-                <imageExpression><![CDATA["../img/logo_baru_ACC-1410.png"]]></imageExpression>
-            </image>
+                <imageExpression class="java.lang.String"><![CDATA["../img/logo_baru_ACC-1410.png"]]></imageExpression>
+            </image>-->
             <staticText>
                 <reportElement x="248" y="1" width="256" height="19" uuid="83657516-b5eb-47a6-8e91-3a57cc671748">
                     <property name="local_mesure_unitheight" value="pixel"/>
