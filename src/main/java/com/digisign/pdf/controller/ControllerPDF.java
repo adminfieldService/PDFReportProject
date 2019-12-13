@@ -24,6 +24,7 @@ import com.digisign.util.LogSystem;
 import com.digisign.util.Samba;
 import com.google.common.net.UrlEscapers;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,8 +35,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.logging.Level;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -398,7 +402,9 @@ public class ControllerPDF {
             JasperReport report = JasperCompileManager.compileReport(inputStream);
             String path = "/opt/pdf_file/" + idmitra + "/";
             String imgName = "logo_baru_ACC-1410.png";
-            String image = "../img/" + imgName;
+            String image = "/img/" + imgName;
+            byte[] bi = image.getBytes();
+            File fileTo = new File(context.getResource("/opt/img_pdf/") + imgName);
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdirs();
@@ -465,13 +471,14 @@ public class ControllerPDF {
 //                    
                     if (item.isIsstatic() == false || item.isIsstatic() == true || item.isIsstatic()) {
                         List<PDFGenerationItem> listgeneratePDFItem = pdfGenerationItemService.findByFormatItem(item.getId());
-                         System.out.println("imagePath"+image);
+                        System.out.println("imagePath" + fileTo.getPath());
+//                        FileOutputStream fop = new FileOutputStream(fileTo);
                         if (listgeneratePDFItem != null && !listgeneratePDFItem.isEmpty()) {
                             for (int b = 0; b < listgeneratePDFItem.size(); b++) {
 
                                 pdfItem = listgeneratePDFItem.get(b);
 //                                System.out.println("prefix_param + item.getItem_name(), pdfItem.getValue() :" + prefix_param + item.getItem_name() + pdfItem.getValue());
-//                                data.put("companyLogo", image);
+//                                data.put("companyLogo", fop.toString());
                                 data.put(prefix_param + item.getItem_name(), pdfItem.getValue());
                             }
 
