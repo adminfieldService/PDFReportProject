@@ -6,7 +6,6 @@
 package com.digisign.pdf.repo;
 
 import com.digisign.pdf.entity.FormatItem;
-import com.digisign.pdf.entity.FormatPDF;
 import com.digisign.util.LogSystem;
 import java.util.List;
 import javax.persistence.EntityManager;

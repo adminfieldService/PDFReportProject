@@ -253,15 +253,23 @@ public class ControllerPDF {
 
 //                        System.out.println("isi Json Array : " + item_name + "," + item_format + "," + max_char + "," + value + "," + isStatic);
                         if (itemJsonObject.containsKey("item_name")) {
-                            item_name = itemJsonObject.getString("item_name");
-                            dataFormatItem.setItem_name(item_name);
-                            dataFormatItem.setFormat_pdf(formatPdf.get(0));
+                            if (itemJsonObject.getString("item_name") != null) {
+                                item_name = itemJsonObject.getString("item_name");
+                                dataFormatItem.setItem_name(item_name);
+                                dataFormatItem.setFormat_pdf(formatPdf.get(0));
+                            } else {
+                                item_name = null;
+                            }
                         } else {
                             item_name = null;
                         }
                         if (itemJsonObject.containsKey("item_format")) {
-                            item_format = itemJsonObject.getString("item_format");
-                            dataFormatItem.setItem_format(item_format);
+                            if (itemJsonObject.getString("item_format") != null) {
+                                item_format = itemJsonObject.getString("item_format");
+                                dataFormatItem.setItem_format(item_format);
+                            } else {
+                                item_format = null;
+                            }
                         } else {
                             item_format = null;
                         }
@@ -291,23 +299,31 @@ public class ControllerPDF {
 //                        } else {
 //                            value = null;
 //                        }
+
+//                        if (itemJsonObject.getBoolean("isStatic") == true) {
+//                            isStatic = true;
+//                            if (itemJsonObject.getString("value") != null) {
+//                                value = itemJsonObject.getString("value");
+//                                dataFormatItem.setIsstatic(isStatic);
+//                                dataFormatItem.setValue(value);
+//                            }
+//                        } else {
+//                            isStatic = false;
+//                            dataFormatItem.setIsstatic(isStatic);
+//                            if (itemJsonObject.getString("value") != null) {
+//                                dataFormatItem.setIsstatic(isStatic);
+//                                value_genertaion_item = itemJsonObject.getString("value");
+//                                dataPdfGenerationItem.setValue(value_genertaion_item);
+//
+//                            }
+//
+//                        }
                         if (itemJsonObject.getString("value") != null) {
-                            isStatic = true;
-                            if (itemJsonObject.getString("value") != null) {
-                                value = itemJsonObject.getString("value");
-                                dataFormatItem.setIsstatic(isStatic);
-                                dataFormatItem.setValue(value);
-                            }
-                        } else {
                             isStatic = false;
                             dataFormatItem.setIsstatic(isStatic);
-                            if (itemJsonObject.getString("value") != null) {
-                                dataFormatItem.setIsstatic(isStatic);
-                                value_genertaion_item = itemJsonObject.getString("value");
-                                dataPdfGenerationItem.setValue(value_genertaion_item);
-
-                            }
-
+//                                dataFormatItem.setValue(value);
+                            value_genertaion_item = itemJsonObject.getString("value");
+                            dataPdfGenerationItem.setValue(value_genertaion_item);
                         }
                         List<FormatItem> cekFormatItem = formatItemService.findByIdFormatPdf_itemName(formatPdf.get(0).getId(), item_name);
                         if (cekFormatItem != null && !cekFormatItem.isEmpty()) {
@@ -381,6 +397,8 @@ public class ControllerPDF {
             inputStream = resource.getInputStream();
             JasperReport report = JasperCompileManager.compileReport(inputStream);
             String path = "/opt/pdf_file/" + idmitra + "/";
+            String imgName = "logo_baru_ACC-1410.png";
+            String image = "../img/" + imgName;
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdirs();
@@ -412,7 +430,7 @@ public class ControllerPDF {
 
                 idGeneratePdf = pdfGenerationService.generatePDF(dataGeneratePDF);
                 String name = UrlEscapers.urlFragmentEscaper().escape(formatItem.get(0).getFormat_pdf().getMitra().getId() + "_" + idGeneratePdf.toString() + "_" + formatItem.get(0).getFormat_pdf().getNama_format() + ".pdf");
-                System.out.println("name document" + name);
+//                System.out.println("name document" + name);
 //                
                 PDFGeneration updateLinkPDFGeneration = pdfGenerationService.findById(idGeneratePdf);
                 updateLinkPDFGeneration.setDocument(path + name);
@@ -428,6 +446,7 @@ public class ControllerPDF {
                 letakTtd = letakTandaTanganService.findByFormatPDF(formatItem.get(0).getFormat_pdf().getId());
 
 //                }
+                PDFGenerationItem pdfItem = null;
                 for (int a = 0; a < formatItem.size(); a++) {
 
                     JSONObject obj = new JSONObject();
@@ -444,13 +463,15 @@ public class ControllerPDF {
                     obj.put("max_char", item.getMax_char());
                     obj.put("isStatic", item.isIsstatic());
 //                    
-                    if (item.isIsstatic() == false) {
+                    if (item.isIsstatic() == false || item.isIsstatic() == true || item.isIsstatic()) {
                         List<PDFGenerationItem> listgeneratePDFItem = pdfGenerationItemService.findByFormatItem(item.getId());
+                         System.out.println("imagePath"+image);
                         if (listgeneratePDFItem != null && !listgeneratePDFItem.isEmpty()) {
                             for (int b = 0; b < listgeneratePDFItem.size(); b++) {
 
-                                PDFGenerationItem pdfItem = listgeneratePDFItem.get(b);
-                                System.out.println("prefix_param + item.getItem_name(), pdfItem.getValue() :" + prefix_param + item.getItem_name() + pdfItem.getValue());
+                                pdfItem = listgeneratePDFItem.get(b);
+//                                System.out.println("prefix_param + item.getItem_name(), pdfItem.getValue() :" + prefix_param + item.getItem_name() + pdfItem.getValue());
+//                                data.put("companyLogo", image);
                                 data.put(prefix_param + item.getItem_name(), pdfItem.getValue());
                             }
 
