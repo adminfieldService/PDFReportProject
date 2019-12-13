@@ -291,7 +291,7 @@ public class ControllerPDF {
 //                        } else {
 //                            value = null;
 //                        }
-                        if (itemJsonObject.containsKey("value")) {
+                        if (itemJsonObject.getString("value") != null) {
                             isStatic = true;
                             if (itemJsonObject.getString("value") != null) {
                                 value = itemJsonObject.getString("value");
