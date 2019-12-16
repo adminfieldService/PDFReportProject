@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AcuseCancelacion" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="041fd329-b27d-44e2-9712-5d45bbb4cabd">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="XML_Acuse_Cancelacion"/>
-	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="49"/>
+	<property name="ireport.y" value="0"/>
 	<field name="acc_no_surat" class="java.lang.String"/>
 	<field name="acc_nama_pemberi_kuasa" class="java.lang.String"/>
 	<field name="acc_jabatan_pemberi_kuasa" class="java.lang.String"/>
@@ -20,7 +20,7 @@
 	<field name="acc_alamat_nasabah" class="java.lang.String"/>
 	<field name="acc_no_perjanjian_pembiayaan" class="java.lang.String"/>
 	<field name="acc_kota_tgl_srt_kuasa" class="java.lang.String"/>
-	<field name="companyLogo" class="java.lang.String"/>
+	<field name="logoImage" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -28,7 +28,7 @@
 		<band height="71" splitType="Stretch">
 			<image>
 				<reportElement x="13" y="1" width="69" height="69" uuid="ad6dd57f-b60e-4337-a574-2fda1e5e8b35"/>
-				<imageExpression><![CDATA[$F{companyLogo}]]></imageExpression>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{logoImage}.getBytes()))]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="248" y="1" width="256" height="19" uuid="83657516-b5eb-47a6-8e91-3a57cc671748">
@@ -142,7 +142,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isStrikeThrough="false"/>
 				</textElement>
-				<text><![CDATA[------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+				<text><![CDATA[-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="4" y="161" width="423" height="17" uuid="5f28a00a-60f3-4324-b672-2c22aea3a1df"/>
@@ -443,21 +443,21 @@
 				<textElement textAlignment="Justified" markup="styled">
 					<paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA["-    Surat Kuasa ini berlaku 7 (tujuh) hari sejak tanggal yang tertera di bawah ini atau sampai dengan<br/>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["-     Surat Kuasa ini berlaku 7 (tujuh) hari sejak tanggal yang tertera di bawah ini atau sampai dengan<br/>"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="219" y="147" width="99" height="13" uuid="cb88369a-e6f3-4a72-a62b-1122ad4eb351"/>
+				<reportElement positionType="Float" x="209" y="147" width="109" height="13" forecolor="#000000" uuid="cb88369a-e6f3-4a72-a62b-1122ad4eb351"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isStrikeThrough="false"/>
 				</textElement>
-				<text><![CDATA[----------K H U S U S --------------]]></text>
+				<text><![CDATA[-----------------K H U S U S ---------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="303" y="147" width="277" height="13" uuid="fcd2b27d-fdff-44b1-a7be-148ebbc92e1d"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
+				<reportElement positionType="Float" x="299" y="147" width="281" height="13" uuid="fcd2b27d-fdff-44b1-a7be-148ebbc92e1d"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font size="8" isBold="true" isStrikeThrough="false"/>
 				</textElement>
-				<text><![CDATA[----------------------------------------------------------------------------------------------------------------------------------]]></text>
+				<text><![CDATA[------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="22" y="550" width="560" height="16" uuid="c3395b25-ab84-4d54-8e7e-d03fc968d0b5">
@@ -468,7 +468,7 @@
 				<textElement textAlignment="Justified" markup="styled">
 					<paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA["     dicabutnya Kuasa ini oleh Pemberi Kuasa karena alasan apapun sebelum habisnya masa berlaku<br/>"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["      dicabutnya Kuasa ini oleh Pemberi Kuasa karena alasan apapun sebelum habisnya masa berlaku<br/>"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="22" y="562" width="560" height="16" uuid="bc5f03c2-c2fd-4640-8bc3-cd753792ba4b">
@@ -479,10 +479,10 @@
 				<textElement textAlignment="Justified" markup="styled">
 					<paragraph lineSpacing="Single" lineSpacingSize="0.0" firstLineIndent="0" leftIndent="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA["     Kuasa ini."]]></textFieldExpression>
+				<textFieldExpression><![CDATA["      Kuasa ini."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="22" y="529" width="560" height="16" uuid="a5232a54-0549-4f37-bdf0-9d83c2464694">
+				<reportElement x="22" y="527" width="560" height="16" uuid="a5232a54-0549-4f37-bdf0-9d83c2464694">
 					<property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>

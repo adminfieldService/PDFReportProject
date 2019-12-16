@@ -59,6 +59,8 @@ import net.sf.json.JSONObject;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONSerializer;
+import org.apache.commons.io.FileUtils;
+import org.jpos.iso.ISOUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -401,10 +403,15 @@ public class ControllerPDF {
             inputStream = resource.getInputStream();
             JasperReport report = JasperCompileManager.compileReport(inputStream);
             String path = "/opt/pdf_file/" + idmitra + "/";
+//            String path_img = "/opt/img_pdf/img/";
             String imgName = "logo_baru_ACC-1410.png";
-            String image = "/img/" + imgName;
-            byte[] bi = image.getBytes();
-            File fileTo = new File(context.getResource("/opt/img_pdf/") + imgName);
+            String file = "../img/" + imgName;
+//            Resource file = context.getResource("classpath:reports/" + imgName);//jasper
+            byte[] fileContent = FileUtils.readFileToByteArray(new File(file));
+            String encodedString = Base64.getEncoder().encodeToString(fileContent);
+//          byte[] bi = image.getBytes();
+            byte[] byteArray = new byte[102400];
+//            File fileTo = new File(file);
             File directory = new File(path);
             if (!directory.exists()) {
                 directory.mkdirs();
@@ -471,14 +478,20 @@ public class ControllerPDF {
 //                    
                     if (item.isIsstatic() == false || item.isIsstatic() == true || item.isIsstatic()) {
                         List<PDFGenerationItem> listgeneratePDFItem = pdfGenerationItemService.findByFormatItem(item.getId());
-                        System.out.println("imagePath" + fileTo.getPath());
-//                        FileOutputStream fop = new FileOutputStream(fileTo);
+//                        System.out.println("imagePath" + fileTo.getFile());
+
+//                        byte[] imageInByte = ISOUtil.hex2byte(file.toString());
+//                        FileOutputStream fop = new FileOutputStream(file.getFile());
+//
+//                        fop.write(imageInByte);
+//                        fop.flush();
+//                        fop.close();
                         if (listgeneratePDFItem != null && !listgeneratePDFItem.isEmpty()) {
                             for (int b = 0; b < listgeneratePDFItem.size(); b++) {
 
                                 pdfItem = listgeneratePDFItem.get(b);
-//                                System.out.println("prefix_param + item.getItem_name(), pdfItem.getValue() :" + prefix_param + item.getItem_name() + pdfItem.getValue());
-//                                data.put("companyLogo", fop.toString());
+//                              System.out.println("prefix_param + item.getItem_name(), pdfItem.getValue() :" + prefix_param + item.getItem_name() + pdfItem.getValue());
+                                data.put("logoImage", encodedString);
                                 data.put(prefix_param + item.getItem_name(), pdfItem.getValue());
                             }
 
