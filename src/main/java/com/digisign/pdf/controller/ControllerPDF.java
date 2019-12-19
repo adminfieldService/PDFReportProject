@@ -23,6 +23,10 @@ import com.digisign.pdf.service.TokenMitraService;
 import com.digisign.util.LogSystem;
 import com.digisign.util.Samba;
 import com.google.common.net.UrlEscapers;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -32,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -60,6 +65,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.jpos.iso.ISOUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -72,9 +78,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RestController
 public class ControllerPDF {
 
-    static String basepath = "/opt/data-DS/UploadFile/";
-    static String basepathPreReg = "/opt/pdf_creation_system/";
+    static String basepathPdf = "/opt/pdf_creation_system/pdf_file/";
+    static String basepathUpload = "/opt/pdf_creation_system/UploadFile/";
+//    
     final static Logger log = Logger.getLogger("digisignlogger");
+//    
     Date tgl = new Date();
     SimpleDateFormat sdfDate2 = new SimpleDateFormat("yyyyMMddHHmmssSSSSSS");
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -84,7 +92,7 @@ public class ControllerPDF {
 
     String refTrx = "pdf_creation_system" + sdfDate2.format(tgl);
     String kelas = "com.digisign.pdf.controller.ControllerPDF";
-    String trxType = "ControllerPDF";
+    String trxType = "controllerPDF";
 //    
 //  @Autowired
     private final FormatPDFService formatPDFService;
@@ -109,38 +117,14 @@ public class ControllerPDF {
         this.context = context;
     }
 
-//    @GetMapping("/api/dataFile")
-//    public String getDataFile() {
-//
-//        String message = "";
-//        String jwtToken = "";
-//        Object sing = "";
-//        String email = "";
-//        String type = "";
-//        String role = "";//user
-//        JSONObject jsonobj = new JSONObject();
-////        
-//        sing = SignatureAlgorithm.HS256;
-//        jwtToken = Jwts.builder().setSubject(email).claim("roles", role).setIssuedAt(new Date())
-//                .signWith((SignatureAlgorithm) sing, "secretkey").compact();
-//        type = "JWT";
-//        message = "Hello Wolrd";
-//        jsonobj.put("typ", type);
-//        jsonobj.put("message", message);
-//        jsonobj.put("token", jwtToken);
-//
-//        return jsonobj.toString();
-//    }
     @GetMapping("/api/pdf_generate.html")
     public List<PDFGeneration> pdfGenerate() {
 
         return pdfGenerationService.selectPdfGeneration();
     }
 
-//    @GetMapping(path = "/api/pdfReport.html")
     @PostMapping(path = "/api/pdfReport.html")
     @ResponseBody
-//    public void getPdf(@PathVariable String jrxml, HttpServletResponse response) throws Exception {
     public String pdfReport(HttpServletRequest request, HttpServletResponse response) throws Exception {//, @RequestBody FormatPDF pdfFormat
         System.out.println("insert method pdfReport");
         JSONObject obj = (JSONObject) JSONSerializer.toJSON(request.getParameter("jsonfield"));
@@ -172,44 +156,8 @@ public class ControllerPDF {
         PDFGenerationItem dataPdfGenerationItem = null;
         List<FormatPDF> formatPdf = null;
         Long idMitra = 0l;
-//        String token = request.getHeader("authorization");
-
-//        if (token != null) {
-////            System.out.println("token != null");
-//            String[] split = token.split(" ");
-//            if (split.length == 2) {
-//                if (split[0].equals("Bearer")) {
-//                    token = split[1];
-//                }
-//            }
-////            System.out.println("isi token" + token);
-//
-//            try {
-//                jsonobj.put("refTrx", refTrx);
-//            } catch (JSONException e2) {
-//                // TODO Auto-generated catch block
-//                e2.printStackTrace();
-//            }
-//
-//            List<TokenMitra> tm = tokenMitraService.findByToken(token.toLowerCase());//
-//            if (tm != null && !tm.isEmpty()) {//
-//                LogSystem.info(request, "ada Token = " + token, kelas, refTrx, trxType);
-//                mitra = tm.get(0).getMitra();
-//
-//            } else {
-////                System.out.println("Token null = " + token + kelas + refTrx + trxType);
-//                LogSystem.error(request, "Token null ", kelas, refTrx, trxType);
-//
-//                jsonobj.put("result", "55");
-//                jsonobj.put("notif", "token salah");
-//                LogSystem.response(request, jsonobj, kelas, refTrx, trxType);
-//                return jsonobj.toString();
-//            }
-//            idmitra = mitra.getId();
-//            mitraName = mitra.getName();
-//
-//            System.out.println("idmitra" + idmitra);
-//            System.out.println("isi nama_format" + nama_format);
+        FileItem imageUpload = null;
+        String img_logo = null;
 //            
         if (obj.size() > 0) {
 
@@ -218,6 +166,13 @@ public class ControllerPDF {
                 JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(obj.getString("JSONFile"));
                 nama_format = jsonObject.getString("nama_format");
                 idMitra = Long.parseLong(jsonObject.getString("id_mitra"));
+                if (jsonObject.containsKey("img_logo")) {
+
+                    img_logo = jsonObject.getString("img_logo");
+
+                } else {
+                    img_logo = null;
+                }
                 JSONArray jsonArray = (JSONArray) JSONSerializer.toJSON(jsonObject.getString("items"));//jsonObject.get("items");
                 List<TokenMitra> tm = tokenMitraService.findByIdMitra(idMitra);//
 
@@ -256,8 +211,7 @@ public class ControllerPDF {
                         JSONObject itemJsonObject = jsonArray.getJSONObject(j);
                         FormatItem dataFormatItem = new FormatItem();
                         dataPdfGenerationItem = new PDFGenerationItem();
-
-//                        System.out.println("isi Json Array : " + item_name + "," + item_format + "," + max_char + "," + value + "," + isStatic);
+//
                         if (itemJsonObject.containsKey("item_name")) {
                             if (itemJsonObject.getString("item_name") != null) {
                                 item_name = itemJsonObject.getString("item_name");
@@ -356,36 +310,18 @@ public class ControllerPDF {
                 jsonobj.put("result", "00");
                 jsonobj.put("message", "Success");
 
-                generatePDF(dataPdfGenerationItem, response, jsonobj, idformatPdf, mitraName, idmitra, id_format_item, id_Pdfgeneration_item, nama_pdf, nama_file, time, prefix_param);
+                generatePDF(i, dataPdfGenerationItem, response, jsonobj, idformatPdf, mitraName, idmitra, id_format_item, id_Pdfgeneration_item, nama_pdf, nama_file, time, img_logo, prefix_param);
             }
 
-//            formatPdf = formatPDFService.selectFormatPDF(nama_format.toLowerCase(), idmitra);
-//                return jsonobj.toString();
             return jsonobj.toString();
         }
-//        } catch (IOException | JRException e) {
-//            LogSystem.error(getClass(), e, kelas, refTrx, trxType);
-////			error (context, e.getMessage());
-////            context.getSyslog().error (e);
-////			log.error(e);
-//            // JSONObject jo=new JSONObject();
-//            try {
-//                jsonobj.put("result", "05");
-//                jsonobj.put("notif", "Request Data tidak ditemukan");
-////                context.put("trxjson", new JSONObject().put("JSONFile", jsonobj).toString());
-////                LogSystem.response(request, jsonobj, kelas, refTrx, trxType);
-//            } catch (JSONException e1) {
-//                // TODO Auto-generated catch block
-//                e1.printStackTrace();
-//            }
-//        }
 
         return jsonobj.toString();
     }
 
 //    @PostMapping(path = "/api/generatePDF.html")
 //    @ResponseBody
-    public String generatePDF(PDFGenerationItem updatePdfGenerationItem, HttpServletResponse response, JSONObject json, Long idformatPdf, String mitraName, Long idmitra, Long idFormat_item, Long idPdfGeneration_item, String namaPDF, String filePDF, String time, String prefix_param) throws JRException {
+    public String generatePDF(int i, PDFGenerationItem updatePdfGenerationItem, HttpServletResponse response, JSONObject json, Long idformatPdf, String mitraName, Long idmitra, Long idFormat_item, Long idPdfGeneration_item, String namaPDF, String filePDF, String time, String img_logo, String prefix_param) throws JRException {
         InputStream inputStream = null;
         String cekLink = null;
         try {
@@ -395,33 +331,49 @@ public class ControllerPDF {
             FormatPDF formatPDF = null;
             PDFGeneration dataGeneratePDF = new PDFGeneration();
             FormatItem item = null;
-//            Letakttd dataLetakttd = null;
             Resource resource = context.getResource("classpath:reports/" + filePDF + ".jrxml");//jasper
 
 //           System.out.println("resource" + resource);
             //Compile to jasperReport
             inputStream = resource.getInputStream();
             JasperReport report = JasperCompileManager.compileReport(inputStream);
-            String path = "/opt/pdf_file/" + idmitra + "/";
-//            String path_img = "/opt/img_pdf/img/";
-            String imgName = "logo_baru_ACC-1410.png";
-            String file = "../img/" + imgName;
-//            Resource file = context.getResource("classpath:reports/" + imgName);//jasper
-            byte[] fileContent = FileUtils.readFileToByteArray(new File(file));
-            String encodedString = Base64.getEncoder().encodeToString(fileContent);
-//          byte[] bi = image.getBytes();
-            byte[] byteArray = new byte[102400];
-//            File fileTo = new File(file);
-            File directory = new File(path);
-            if (!directory.exists()) {
-                directory.mkdirs();
+            String pathPDF = basepathPdf + idmitra + "/";
+
+            File directoryPDF = new File(pathPDF);
+            if (!directoryPDF.exists()) {
+                directoryPDF.mkdirs();
             }
-//        
-//        JSONObject jsonobj = new JSONObject();
+            String pathIMG = basepathUpload + idmitra + "/";
+            byte[] imageInByte = new byte[8192];
+            Base64.Decoder dec = Base64.getDecoder();
+            FileOutputStream fop = null;
+            String nama_file = null;
+            if (img_logo != null) {
+                imageInByte = dec.decode(img_logo.getBytes());
+
+                nama_file = "logo" + "_" + i + ".png";
+                File fileIMG = new File(pathIMG + nama_file);
+                File directoryIMG = new File(pathIMG);
+                if (!directoryIMG.exists()) {
+                    directoryIMG.mkdirs();
+                }
+
+                fop = new FileOutputStream(fileIMG);
+
+                if (!fileIMG.exists()) {
+                    fileIMG.createNewFile();
+                }
+                fop.write(imageInByte);
+                fop.flush();
+                fop.close();
+            }
+//          File fileTo = new File(file);
+
+//
             Samba samba = new Samba();
             JSONArray arrayItem = new JSONArray();
             JSONArray arrayletakTTD = new JSONArray();
-            String fileName = null;
+//            String fileName = null;
 //
 
             Map data = new HashMap();
@@ -440,13 +392,17 @@ public class ControllerPDF {
                 dataGeneratePDF.setCreatedate(now);
                 dataGeneratePDF.setRequest_time(time_now);
                 dataGeneratePDF.setDocument(null);
+                if (img_logo != null) {
+                    dataGeneratePDF.setImgLogo(pathIMG + nama_file);
+                }
 
                 idGeneratePdf = pdfGenerationService.generatePDF(dataGeneratePDF);
                 String name = UrlEscapers.urlFragmentEscaper().escape(formatItem.get(0).getFormat_pdf().getMitra().getId() + "_" + idGeneratePdf.toString() + "_" + formatItem.get(0).getFormat_pdf().getNama_format() + ".pdf");
 //                System.out.println("name document" + name);
 //                
                 PDFGeneration updateLinkPDFGeneration = pdfGenerationService.findById(idGeneratePdf);
-                updateLinkPDFGeneration.setDocument(path + name);
+                updateLinkPDFGeneration.setDocument(pathPDF + name);
+//                updateLinkPDFGeneration.setImgLogo(pathIMG + nama_file);
                 pdfGenerationService.udatePDF(updateLinkPDFGeneration);
 //              
 
@@ -487,11 +443,15 @@ public class ControllerPDF {
 //                        fop.flush();
 //                        fop.close();
                         if (listgeneratePDFItem != null && !listgeneratePDFItem.isEmpty()) {
+//                            System.out.println("logoImage :" + pathIMG + nama_file);
+                            if (img_logo != null) {
+                                data.put(prefix_param + "logoImage", pathIMG + nama_file);
+                            }
                             for (int b = 0; b < listgeneratePDFItem.size(); b++) {
 
                                 pdfItem = listgeneratePDFItem.get(b);
 //                              System.out.println("prefix_param + item.getItem_name(), pdfItem.getValue() :" + prefix_param + item.getItem_name() + pdfItem.getValue());
-                                data.put("logoImage", encodedString);
+
                                 data.put(prefix_param + item.getItem_name(), pdfItem.getValue());
                             }
 
@@ -532,26 +492,20 @@ public class ControllerPDF {
 //                System.out.println("dataSource" + dataSource);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);//new JREmptyDataSource()
                 System.out.println("jasperPrint" + jasperPrint);
-//                System.out.println("jasperPrint" + jasperPrint);
-//                
-//              List<JRPrintPage> page1 = jasperPrint.getPages();
-//                JRPrintPage page = jasperPrint.getPages().get(0);
-//                List pageElements = page.getElements();
-//                JRPrintPage page = jasperPrint.getPages().get(0);
-//                List pageElements = page.getElements();
-//                System.out.println("pageElements 10" + pageElements.get(10));
-//                System.out.println("pageElements 11" + pageElements.get(11));
 ////                
                 //Media Type
                 response.setContentType(MediaType.APPLICATION_PDF_VALUE);
-                JasperExportManager.exportReportToPdfFile(jasperPrint, path + name);
+                JasperExportManager.exportReportToPdfFile(jasperPrint, pathPDF + name);
 
 //               
 //                
                 String linkDoc = null;
+//                String linkImg = null;
                 String str = null;
                 byte[] input_file = null;
                 byte[] encodedBytes = null;
+//                byte[] img_file = null;
+//                byte[] encodeImg = null;
                 cekLink = dataGeneratePDF.getDocument();
 //                File namaFile = null;
 //                List<FileItem> fileSave = new ArrayList<FileItem>();
@@ -559,7 +513,9 @@ public class ControllerPDF {
                     input_file = Files.readAllBytes(Paths.get(dataGeneratePDF.getDocument()));
                     encodedBytes = Base64.getEncoder().encode(input_file);
                     linkDoc = new String(encodedBytes);
-
+//                    img_file = Files.readAllBytes(Paths.get(dataGeneratePDF.getImgLogo()));
+//                    encodeImg = Base64.getEncoder().encode(img_file);
+//                    linkImg = new String(encodeImg);
 //                        byte[] decodedBytes = Base64.getDecoder().decode(encodedString.getBytes());
 //                        str = new String(decoder);
                 } catch (IOException ex) {
@@ -570,7 +526,9 @@ public class ControllerPDF {
 //                    LogSystem.info(request, fileItem.getFieldName(), kelas, refTrx, trxType);
 //                }
                 File namaFile = new File(dataGeneratePDF.getDocument());
-                samba.write(input_file, path + namaFile.getName());
+//                File namaIMG = new File(nama_file);
+                samba.write(input_file, pathPDF + namaFile.getName());
+//                samba.write(img_file, pathIMG + namaIMG.getName());
 //                if () {
 //                System.out.println("samba.toString()" + samba.toString());
 //                PDFGeneration updatePDF = pdfGenerationService.findById(idGeneratePdf);

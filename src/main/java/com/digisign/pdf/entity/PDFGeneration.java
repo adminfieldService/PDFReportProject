@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -50,6 +51,11 @@ public class PDFGeneration implements Serializable {
     private Date request_time;
     @Column(name = "document")
     private String document;
+    @Column(name = "img_logo")
+    private String imgLogo;
+//    @Lob
+//    @Column(name = "img_logo", nullable = true, length = 512)
+//    private String imgLogo;
     @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne(cascade = CascadeType.ALL)//FetchType.LAZY
@@ -64,10 +70,12 @@ public class PDFGeneration implements Serializable {
 
     }
 
-    public PDFGeneration(Long id, Date createdate, Date request_time, FormatPDF format_pdf, Collection<PDFGenerationItem> pdfGenerationItem) {
+    public PDFGeneration(Long id, Date createdate, Date request_time, String document, String imgLogo, FormatPDF format_pdf, Collection<PDFGenerationItem> pdfGenerationItem) {
         this.id = id;
         this.createdate = createdate;
         this.request_time = request_time;
+        this.document = document;
+        this.imgLogo = imgLogo;
         this.format_pdf = format_pdf;
         this.pdfGenerationItem = pdfGenerationItem;
     }
@@ -102,6 +110,14 @@ public class PDFGeneration implements Serializable {
 
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    public String getImgLogo() {
+        return imgLogo;
+    }
+
+    public void setImgLogo(String imgLogo) {
+        this.imgLogo = imgLogo;
     }
 
     public FormatPDF getFormat_pdf() {

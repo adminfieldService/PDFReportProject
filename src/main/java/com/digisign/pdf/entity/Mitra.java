@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -8,18 +8,24 @@ package com.digisign.pdf.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -80,11 +86,23 @@ public class Mitra implements Serializable {
     private String i_akta_perusahaan;
     @Column(name = "i_surat_domisili")
     private String i_surat_domisili;
-    @Column(name = "parent_id")
-    private Long parent_id;
+//    
+//    @Column(name = "parent_id")
+//    private Long parent_id;
+//    
+    @JsonIgnore
+    @OneToMany(mappedBy = "parent_id", cascade = CascadeType.ALL)//, fetch = FetchType.EAGER
+    private List<Mitra> child;
+//    
+    @JsonIgnore
+    @JoinColumn(name = "parent_id")
+    @ManyToOne(cascade = CascadeType.ALL)//FetchType.LAZY
+    private Mitra parent_id;
+//
     @JsonIgnore
     @OneToMany(mappedBy = "mitra", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Collection<FormatPDF> formatPDF;
+//    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "mitra")
     private TokenMitra tokenMitra;
 
@@ -92,11 +110,10 @@ public class Mitra implements Serializable {
 //    private Collection<Mitra> children;
 //    @ManyToOne()
 //    private Mitra parent_id;
-
     public Mitra() {
     }
 
-    public Mitra(Long id, String name, boolean verifikasi, boolean notifikasi, boolean ekyc, String level, String activation_redirect, String signing_redirect, boolean dukcapil, boolean ekyc_tabungan, String user_sftp, String no_npwp, String no_siup, String no_tdp, String no_akta_perusahaan, String no_surat_domisili, String i_siup, String i_npwp, String i_tdp, String i_akta_perusahaan, String i_surat_domisili, Long parent_id, Collection<FormatPDF> formatPDF, TokenMitra tokenMitra) {
+    public Mitra(Long id, String name, boolean verifikasi, boolean notifikasi, boolean ekyc, String level, String activation_redirect, String signing_redirect, boolean dukcapil, boolean ekyc_tabungan, String user_sftp, String no_npwp, String no_siup, String no_tdp, String no_akta_perusahaan, String no_surat_domisili, String i_siup, String i_npwp, String i_tdp, String i_akta_perusahaan, String i_surat_domisili, List<Mitra> child, Mitra parent_id, Collection<FormatPDF> formatPDF, TokenMitra tokenMitra) {
         this.id = id;
         this.name = name;
         this.verifikasi = verifikasi;
@@ -118,6 +135,7 @@ public class Mitra implements Serializable {
         this.i_tdp = i_tdp;
         this.i_akta_perusahaan = i_akta_perusahaan;
         this.i_surat_domisili = i_surat_domisili;
+        this.child = child;
         this.parent_id = parent_id;
         this.formatPDF = formatPDF;
         this.tokenMitra = tokenMitra;
@@ -291,11 +309,19 @@ public class Mitra implements Serializable {
         this.i_surat_domisili = i_surat_domisili;
     }
 
-    public Long getParent_id() {
+    public List<Mitra> getChild() {
+        return child;
+    }
+
+    public void setChild(List<Mitra> child) {
+        this.child = child;
+    }
+
+    public Mitra getParent_id() {
         return parent_id;
     }
 
-    public void setParent_id(Long parent_id) {
+    public void setParent_id(Mitra parent_id) {
         this.parent_id = parent_id;
     }
 

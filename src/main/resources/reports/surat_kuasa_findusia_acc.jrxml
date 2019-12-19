@@ -20,7 +20,7 @@
 	<field name="acc_alamat_nasabah" class="java.lang.String"/>
 	<field name="acc_no_perjanjian_pembiayaan" class="java.lang.String"/>
 	<field name="acc_kota_tgl_srt_kuasa" class="java.lang.String"/>
-	<field name="logoImage" class="java.lang.String"/>
+	<field name="acc_logoImage" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -28,7 +28,7 @@
 		<band height="71" splitType="Stretch">
 			<image>
 				<reportElement x="13" y="1" width="69" height="69" uuid="ad6dd57f-b60e-4337-a574-2fda1e5e8b35"/>
-				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{logoImage}.getBytes()))]]></imageExpression>
+				<imageExpression><![CDATA[$F{acc_logoImage}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="248" y="1" width="256" height="19" uuid="83657516-b5eb-47a6-8e91-3a57cc671748">
@@ -41,7 +41,7 @@
 				<text><![CDATA[SURAT KUASA]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="83" y="15" width="440" height="19" uuid="e6bb1cdc-49d6-40ea-922e-002295209052"/>
+				<reportElement x="83" y="15" width="451" height="19" uuid="e6bb1cdc-49d6-40ea-922e-002295209052"/>
 				<box topPadding="0" leftPadding="10" bottomPadding="0" rightPadding="0"/>
 				<textElement textAlignment="Center" markup="html">
 					<font size="13" isBold="true"/>
@@ -49,14 +49,14 @@
 				<textFieldExpression><![CDATA["<b><u> PELAKSANAAN EKSEKUSI KENDARAAN FIDUSIA </u></b>"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="248" y="34" width="26" height="16" uuid="52df7b5c-7ed5-4612-a052-f64557e52a17"/>
+				<reportElement x="248" y="34" width="28" height="13" uuid="52df7b5c-7ed5-4612-a052-f64557e52a17"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[No ]]></text>
+				<text><![CDATA[No  :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="287" y="34" width="261" height="13" uuid="74ad044f-3efc-43af-ab12-5e1cfba9cb44">
+				<reportElement x="273" y="34" width="261" height="13" uuid="74ad044f-3efc-43af-ab12-5e1cfba9cb44">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{acc_no_surat}]]></textFieldExpression>
@@ -453,8 +453,8 @@
 				<text><![CDATA[-----------------K H U S U S ---------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="299" y="147" width="281" height="13" uuid="fcd2b27d-fdff-44b1-a7be-148ebbc92e1d"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle">
+				<reportElement positionType="Float" x="295" y="147" width="285" height="13" uuid="fcd2b27d-fdff-44b1-a7be-148ebbc92e1d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true" isStrikeThrough="false"/>
 				</textElement>
 				<text><![CDATA[------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
