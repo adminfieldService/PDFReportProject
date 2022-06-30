@@ -194,7 +194,7 @@
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>
-            <version>5.5.0</version>
+            <version>5.5.12</version>
         </dependency>
         <!--https://logging.apache.org/log4j/2.x/dependency-info.html-->
         <!--        <dependency>
